@@ -93,6 +93,8 @@ public:
     }
 };
 
+// Que dios nos ayude con esto
+
 class Gestor_Coche{
 public:
     Gestor_Coche(Coche M1, string name = "Grossman", int age = 19){
@@ -121,8 +123,6 @@ public:
         Franchesco.set_marca(marca).set_modelo(modelo).set_year(_year).set_color(colour).set_numPuertas(numPuertas);
     }
 
-
-
     void imprimirInformacion() {
         cout << "Dueño del vehicculo: " << nombre << " edad: " << edad;
         cout << "Datos del vehivulo: " << endl;
@@ -141,128 +141,68 @@ private:
 
 };
 
-Coche menu_coche() {
-    string marca, modelo, color, nombre;
-    int year, numPuertas, opcion, edad;
+int menu() {
+    int eleccion;
 
-    int opc = 0;
-    while (opc <= 0 or opc >= 4) {
-        cout << "1 : Crear Vehículo sin datos" << endl;
-        cout << "2 : Ingresar Vehículo" << endl;
-        cout << "3 : Ingresar Marca y modelo" << endl;
-        cin >> opc;
-    }
+    cout << "1. Crear un nuevo coche" << endl;
+    cout << "2. Modificar propiedades del coche" << endl;
+    cout << "3. Imprimir información del coche" << endl;
+    cout << "4. Salir" << endl;
+    cout << "Ingrese su elección: ";
+    cin >> eleccion;
 
-    if (opc == 1) {
-        Coche M1("","",0,"",0);
-        return M1;
-    }
-
-    if (opc == 2) {
-        cout << "Ingresar Marca:" << endl;
-        cin >> marca;
-        cout << "Ingresar Modelo:" << endl;
-        cin >> modelo;
-        cout << "Ingresar Año:" << endl;
-        cin >> year;
-        cout << "Ingresar Color:" << endl;
-        cin >> color;
-        cout << "Ingresar N_Puertas:" << endl;
-        cin >> numPuertas;
-        Coche M1(marca, modelo, year, color, numPuertas);
-        return M1;
-    }
-
-    if (opc == 3) {
-        cout << "Ingresar Marca:" << endl;
-        cin >> marca;
-        cout << "Ingresar Modelo:" << endl;
-        cin >> modelo;
-        Coche M1(marca, modelo);
-        return M1;
-    }
+    return eleccion;
 }
-
-void menu_Gestor(Coche m){
-    string marca,modelo,color;
-    int year, n_puertas;
-    string nombre;
-    int edad;
-
-    cout << "Ingrese su nombre:" << endl;
-    cin >> nombre;
-    cout << "Digite su edad:" << endl;
-    cin >> edad;
-
-    Gestor_Coche M2(m, nombre, edad);
-
-    int opc = 0;
-    while (opc <= 0 or opc >= 6) {
-        cout << "1 : Modificar Marca y Modelo" << endl;
-        cout << "2 : Modificar Año" << endl;
-        cout << "3 : Modificar Color" << endl;
-        cout << "4 : Modifiar N_Puertas" << endl;
-        cout << "5 : Reingresar Datos" << endl;
-        cout << "6 : Imprimir Datos" << endl;
-        cin >> opc;
-    }
-
-    if (opc == 1){
-        cout << "Reingresar marca: " << endl;
-        cin >> marca;
-        cout << "Reingresar modelo: " << endl;
-        cin >> modelo;
-        M2.modif_marca_modelo(marca,modelo);
-        M2.imprimirInformacion();
-    }
-
-    if (opc == 2){
-        cout << "Reingresar año: " << endl;
-        cin >> year;
-        M2.modif_year(year);
-        M2.imprimirInformacion();
-    }
-
-    if (opc == 3){
-        cout << "Reingresar color: " << endl;
-        cin >> color;
-        M2.modif_color(color);
-        M2.imprimirInformacion();
-    }
-
-    if (opc == 4){
-        cout << "Reingresar n_Puertas: " << endl;
-        cin >> n_puertas;
-        M2.modif_numPuertas(n_puertas);
-        M2.imprimirInformacion();
-    }
-
-    if (opc == 5){
-        cout << "Reingresar marca: " << endl;
-        cin >> marca;
-        cout << "Reingresar modelo: " << endl;
-        cin >> modelo;
-        cout << "Reingresar año: " << endl;
-        cin >> year;
-        cout << "Reingresar color: " << endl;
-        cin >> color;
-        cout << "Reingresar N_puertas:" << endl;
-        cin >> n_puertas;
-        M2.reingresar_datos(marca,modelo,year,color,n_puertas);
-        M2.imprimirInformacion();
-    }
-
-    if (opc == 6){
-        M2.imprimirInformacion();
-    }
-}
-
-
-
 
 int main() {
-    Coche m;
-    m = menu_coche();
-    menu_Gestor(m);
-    return 0;
+    Coche M1("Wa","Ya",2015, "Azul",4);
+    M1.set_color("Ga").set_marca("Raro").set_numPuertas(150);
+    Gestor_Coche manager(M1, "Grossman", 25);
+
+    while (true) {
+        int choice = menu();
+
+        switch (choice) {
+            case 1: {
+                string marca, modelo, color;
+                int year, numPuertas;
+                cout << "Ingrese la marca del coche: ";
+                cin >> marca;
+                cout << "Ingrese el modelo del coche: ";
+                cin >> modelo;
+                cout << "Ingrese el año del coche: ";
+                cin >> year;
+                cout << "Ingrese el color del coche: ";
+                cin >> color;
+                cout << "Ingrese el número de puertas del coche: ";
+                cin >> numPuertas;
+                Coche M2(marca, modelo, year, color, numPuertas);
+                manager = Gestor_Coche(M2, "Joaquin", 25);
+                break;
+            }
+            case 2: {
+                string marca, modelo, color;
+                int year, numPuertas;
+                cout << "Ingrese la nueva marca del coche: ";
+                cin >> marca;
+                cout << "Ingrese el nuevo modelo del coche: ";
+                cin >> modelo;
+                cout << "Ingrese el nuevo año del coche: ";
+                cin >> year;
+                cout << "Ingrese el nuevo color del coche: ";
+                cin >> color;
+                cout << "Ingrese el nuevo número de puertas del coche: ";
+                cin >> numPuertas;
+                manager.reingresar_datos(marca, modelo, year, color, numPuertas);
+                break;
+            }
+            case 3:
+                manager.imprimirInformacion();
+                break;
+            case 4:
+                return 0;
+            default:
+                cout << "Elección inválida. Por favor, inténtelo de nuevo." << endl;
+        }
+    }
 }

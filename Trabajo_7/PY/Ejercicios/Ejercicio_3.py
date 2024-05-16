@@ -39,3 +39,6 @@ print(telefono1)
 
 tablet1 = Tablet("iPap", "air", "apple")
 print(tablet1)
+
+del telefono1
+del tablet1

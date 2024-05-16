@@ -4,19 +4,34 @@ using namespace std;
 
 class cliente{
 
-public:
+protected:
     string nombre;
-    int telefono;
+    int telefono{};
     string correo;
     string cuentaBancaria;
-    double monto;
+    double monto{};
 
-    cliente(string nombre, int telefono, string correo, string cuentaBancaria, double monto){
-        this->nombre = nombre;
-        this->telefono = telefono;
-        this->correo = correo;
-        this->cuentaBancaria = cuentaBancaria;
-        this->monto = monto;
+    static string encriptarInformacion(string informacion, int desplazamiento=3) {
+        string resultado;
+        for (int i = 0; i < informacion.length(); i++) {
+            if (isdigit(informacion[i]))
+                resultado += char(int(informacion[i] + desplazamiento - 48) % 10 + 48);
+            else if (isupper(informacion[i]))
+                resultado += char(int(informacion[i] + desplazamiento - 65) % 26 + 65);
+            else
+                resultado += char(int(informacion[i] + desplazamiento - 97) % 26 + 97);
+        }
+        return resultado;
+    }
+
+public:
+
+    cliente(string nombre, int telefono, const string& correo, const string& cuentaBancaria, double monto){
+        this -> nombre = nombre;
+        this -> telefono = telefono;
+        this -> correo = correo;
+        this -> cuentaBancaria = cuentaBancaria;
+        this -> monto = monto;
     }
 
 
@@ -52,20 +67,15 @@ private:
 
 public:
     clienteSeguro(string nombre, int telefono, string correo, string cuentaBancaria, double monto, string clave)
-            : cliente(nombre, telefono, correo, cuentaBancaria, monto){
+            : cliente(encriptarInformacion(nombre), telefono, encriptarInformacion(correo), encriptarInformacion(cuentaBancaria), monto){
 
-        this -> nombre = encriptarInformacion(nombre);
-        this -> telefono = telefono;
-        this -> correo = encriptarInformacion(correo);
-        this -> cuentaBancaria = encriptarInformacion(cuentaBancaria);
-        this -> monto = monto;
-        this -> claveEncriptada = encriptarInformacion(clave);
+        this -> claveEncriptada = encriptarInformacion(std::move(clave));
 
     }
 
     string getClaveEncriptada()
     {
-        return descriptarInformacion(claveEncriptada);
+        return claveEncriptada;
     }
 
     static string encriptarInformacion(string informacion, int desplazamiento=3) {
@@ -81,7 +91,7 @@ public:
         return resultado;
     }
 
-    bool verificarAutenticidad(string claveIngresada) {
+    bool verificarAutenticidad(const string& claveIngresada) {
         return claveIngresada == descriptarInformacion(claveEncriptada);
     }
 };
@@ -96,6 +106,7 @@ int main(){
                                            "123456789",
                                            1000.0,
                                            "1234");
+
 
     cout << grossman << endl;
 

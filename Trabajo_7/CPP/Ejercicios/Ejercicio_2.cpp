@@ -93,9 +93,9 @@ public:
 
 
 int main(){
-    Empleado Jose("Jose", 18, 950, "hola@gmail.com", 123);
-    Cliente Pepe("Pepe", 19, 1000, "xd@gmail.com", "Casado");
-    Jose.setCorreo("Xd");
+    Empleado Jose("Jose", 18, 950, "jose.luis@gmail.com", 123);
+    Cliente Pepe("Pepe", 19, 1000, "pepe.zoto@gmail.com", "Casado");
+    Jose.setCorreo("Joaquin.data.52@gmail.com");
     cout << Jose;
     cout << "" << endl;
     cout << Pepe;

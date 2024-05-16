@@ -6,5 +6,5 @@ Lenguaje de programacion 2 durante el semestre 3
 ## Integrantes
 - [x] 2023705251 - Joaquin Loaiza Cruz
 - [x] 201602625 - Jose Eduardo Lopez
-- [x] 201602625 - Jose Eduardo Lopez
+- [x] 2023706001 - Yhosfer Anderson Quispe Sullca
 - [x] 201602625 - Jose Eduardo Lopez

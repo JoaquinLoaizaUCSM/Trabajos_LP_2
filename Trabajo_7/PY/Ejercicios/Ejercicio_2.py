@@ -10,6 +10,8 @@ class Persona:
     def get_correo_electronico(self):
         return self.correo_electronico
 
+
+
 class Empleado(Persona):
     def __init__(self, nombre, salario, correo_electronico, departamento):
         Persona.__init__(self, nombre, salario, correo_electronico)
@@ -20,6 +22,8 @@ class Empleado(Persona):
                 f"Salario: {self.salario}\n"
                 f"Correo electronico: {self.correo_electronico}\n"
                 f"Departamento: {self.departamento}\n")
+    def __del__(self):
+        print("Objeto Empleado Destruido")
 
 class Cliente(Persona):
     def __init__(self, nombre, salario, correo_electronico, cuentaBancaria):
@@ -31,6 +35,9 @@ class Cliente(Persona):
                 f"Salario: {self.salario}\n"
                 f"Correo electronico: {self.correo_electronico}\n"
                 f"Cuenta Bancaria: {self.cuentaBancaria}\n")
+
+    def __del__(self):
+        print("Objeto Cliente Destruido")
 
 empleado = Empleado("Yhosfer", 5000, "yhosfer@gmail.com","123")
 print("Acceso a correo electronico del empleado")

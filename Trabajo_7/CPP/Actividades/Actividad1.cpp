@@ -40,11 +40,11 @@ private:
         string resultado;
         for (int i = 0; i < informacion.length(); i++) {
             if (isdigit(informacion[i]))        //verificar si es un digito
-                resultado += char(int(informacion[i] - desplazamiento - 48 + 10) % 10 + 48);
+                resultado += char(int(informacion[i] - desplazamiento - 48) % 10 + 48);
             else if (isupper(informacion[i]))   // verificar si es una letra mayuscula
-                resultado += char(int(informacion[i] - desplazamiento - 65 + 26) % 26 + 65);
+                resultado += char(int(informacion[i] - desplazamiento - 65) % 26 + 65);
             else                                   // verificar si es una letra minuscula
-                resultado += char(int(informacion[i] - desplazamiento - 97 + 26) % 26 + 97);
+                resultado += char(int(informacion[i] - desplazamiento - 97) % 26 + 97);
         }
         return resultado;
     }

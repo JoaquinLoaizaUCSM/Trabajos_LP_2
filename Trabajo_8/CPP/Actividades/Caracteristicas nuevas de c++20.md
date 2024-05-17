@@ -178,6 +178,3 @@ int main() {
 ## Conclusión
 
 Estas características modernas de C++20 no solo mejoran la eficiencia y la claridad del código, sino que también facilitan la implementación de conceptos avanzados de programación orientada a objetos. Al incorporar estas funcionalidades en nuestros ejemplos, hemos mejorado la robustez, la seguridad y el rendimiento del código, permitiendo una mayor comprensión y aplicación en proyectos reales.
-
-Si tienes más preguntas sobre alguna de estas funcionalidades o necesitas ejemplos adicionales, no dudes en preguntar.
-```

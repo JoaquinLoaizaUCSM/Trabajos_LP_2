@@ -10,7 +10,7 @@ class Figura {
 
 class Circulo : public Figura {
     public:
-        Circulo(double r=1) : radio(r) {}
+        explicit Circulo(double r=1) : radio(r) {}
 
         double calcularArea() const override {
             return 3.14 * radio * radio;
@@ -22,7 +22,7 @@ class Circulo : public Figura {
 
 class Rectangulo : public Figura {
     public:
-        Rectangulo(double w=1, double h=1) : ancho(w), alto(h) {}
+        explicit Rectangulo(double w=1, double h=1) : ancho(w), alto(h) {}
 
         double calcularArea() const override {
             return ancho * alto;
@@ -35,7 +35,7 @@ class Rectangulo : public Figura {
 
 class Cuadrado : public Figura {
     public:
-        Cuadrado(double l=1) : lado(l) {}
+        explicit Cuadrado(double l=1) : lado(l) {}
 
         double calcularArea() const override {
             return lado * lado;
@@ -47,7 +47,7 @@ class Cuadrado : public Figura {
 
 class Pentagono : public Figura {
     public:
-        Pentagono(double l=1) : lado(l) {}
+        explicit Pentagono(double l=1) : lado(l) {}
 
         double calcularArea() const override {
             return 1.72 * lado * lado;
@@ -59,7 +59,7 @@ class Pentagono : public Figura {
 
 class Triangulo : public Figura {
     public:
-        Triangulo(double b=1, double h=1) : base(b), altura(h) {}
+        explicit Triangulo(double b=1, double h=1) : base(b), altura(h) {}
 
         double calcularArea() const override {
             return 0.5 * base * altura;

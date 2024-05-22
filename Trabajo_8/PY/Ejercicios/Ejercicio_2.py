@@ -24,10 +24,10 @@ class ReproductorMP3(Reproductor):
     def reproducir(self):
         if self.modo == True:
             if self.estado == True:
-                print("La musica ya se encuentra reproduciendo")
+                print("El archivo mp3 ya se encuentra en reproduccion")
             else:
                 self.modo = True
-                print(f"Reproduciendo Lista Rock90...")
+                print(f"Reproduciendo archivo mp3")
         else:
             print("Reproductor apagado")
 
@@ -35,22 +35,23 @@ class ReproductorMP3(Reproductor):
         if self.modo == True:
             if self.estado == True:
                 self.estado = False
-                print("Musica en pausa")
+                print("Pausando archivo mp3")
             else:
-                print("Dispositivo ya en pausa")
+                print("Archivo m'3 ya en pausa")
         else:
             print("Reproductor apagado")
 
     def detener(self):
         if self.modo == True:
             self.estado = False
-            print("Musica detenida")
+            print("Dteneiendo Reproduccion de musica")
         else:
             print("Dispositivo apagado")
 
-def menu():
+    def iniciar(self):
+        if self.modo == True:
+            print("Encendiendo MP3")
+def menu_():
     print("Menu acciones Reproductor")
-    print("1 - Reproducir Musica")
-    print("2 - Pausar Musica")
-    print("3 - Detener Musica")
-    print("4 - Iniciar Musica")
+    print("1. Encender Reproductor")
+    print("2. Reproducir Reproductor")

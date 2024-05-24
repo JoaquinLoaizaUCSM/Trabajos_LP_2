@@ -1,76 +1,44 @@
 #include <iostream>
-#include <vector>
-#include <memory>
+#include <format>
 
 using namespace std;
 
-class Dispositivo {
+class Vehiculo {
 public:
-    virtual void encender() const = 0;
-    virtual void apagar() const = 0;
-    virtual ~Dispositivo() = default;
+    virtual void acelerar() const {
+        cout << format("Acelerando el vehiculo\n");
+    }
+    virtual ~Vehiculo() = default;
 };
 
-class Computadora : public Dispositivo {
+class Coche : public Vehiculo {
 public:
-    void encender() const override {
-        cout << "La computadora esta encendida." << endl;
+    void acelerar() const override {
+        cout << format("Acelerando el coche\n");
     }
-    void apagar() const override {
-        cout << "La computadora esta apagada." << endl;
-    }
-};
-
-class Telefono : public Dispositivo {
-public:
-    void encender() const override {
-        cout << "El telefono esta encendido." << endl;
-    }
-    void apagar() const override {
-        cout << "El telefono esta apagado." << endl;
+    void encenderLuces() const {
+        cout << format("Luces del coche encendidas\n");
     }
 };
 
-class Tablet : public Dispositivo {
+class Motocicleta : public Vehiculo {
 public:
-    void encender() const override {
-        cout << "La tablet esta encendida." << endl;
-    }
-    void apagar() const override {
-        cout << "La tablet esta apagada." << endl;
+    void acelerar() const override {
+        cout << format("Acelerando la motocicleta\n");
     }
 };
+
+void acelerarVehiculo(const Vehiculo& vehiculo) {
+    vehiculo.acelerar();
+}
 
 int main() {
-    vector<unique_ptr<Dispositivo>> dispositivos;
-    int opcion;
+    Coche coche;
+    acelerarVehiculo(coche);
+    coche.encenderLuces();
 
-    while (true) {
-        cout << "Seleccione un dispositivo (1: Computadora, 2: Telefono, 3: Tablet, 0: Salir): ";
-        cin >> opcion;
-
-        if (opcion == 0) break;
-
-        unique_ptr<Dispositivo> dispositivo;
-        switch (opcion) {
-            case 1:
-                dispositivo = make_unique<Computadora>();
-                break;
-            case 2:
-                dispositivo = make_unique<Telefono>();
-                break;
-            case 3:
-                dispositivo = make_unique<Tablet>();
-                break;
-            default:
-                cout << "Opcion no valida." << endl;
-                continue;
-        }
-
-        dispositivo->encender();
-        dispositivo->apagar();
-        dispositivos.push_back(std::move(dispositivo));
-    }
+    Motocicleta moto;
+    acelerarVehiculo(moto);
 
     return 0;
 }

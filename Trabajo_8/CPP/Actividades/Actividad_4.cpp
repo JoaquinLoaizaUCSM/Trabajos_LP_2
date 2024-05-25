@@ -1,12 +1,11 @@
 #include <iostream>
-#include <format>
 
 using namespace std;
 
 class Vehiculo {
 public:
     virtual void acelerar() const {
-        cout << format("Acelerando el vehiculo\n");
+        cout << "Acelerando el vehiculo\n";
     }
     virtual ~Vehiculo() = default;
 };
@@ -14,17 +13,17 @@ public:
 class Coche : public Vehiculo {
 public:
     void acelerar() const override {
-        cout << format("Acelerando el coche\n");
+        cout << "Acelerando el coche\n";
     }
     void encenderLuces() const {
-        cout << format("Luces del coche encendidas\n");
+        cout << "Luces del coche encendidas\n";
     }
 };
 
 class Motocicleta : public Vehiculo {
 public:
     void acelerar() const override {
-        cout << format("Acelerando la motocicleta\n");
+        cout << "Acelerando la motocicleta\n";
     }
 };
 

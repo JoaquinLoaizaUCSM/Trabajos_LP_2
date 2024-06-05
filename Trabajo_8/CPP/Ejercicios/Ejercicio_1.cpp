@@ -56,7 +56,7 @@ public:
     }
 
     void dibujar() const override{
-        cout << "El Rectangulo con base " << this -> base << " y altura " << this -> altura << " fue fibujado." << endl;
+        cout << "El Rectangulo con base " << this -> base << " y altura " << this -> altura << " fue dibujado." << endl;
     }
 
     void calculo_area() override{
@@ -88,7 +88,7 @@ public:
     }
 
     void dibujar() const override{
-        cout << "El Triangulo con base " << this -> base << " y altura " << this -> altura << " fue fibujado." << endl;
+        cout << "El Triangulo con base " << this -> base << " y altura " << this -> altura << " fue dibujado." << endl;
     }
 
     void calculo_area() override{
@@ -108,18 +108,22 @@ public:
 
 int main() {
     cout << "Prueba:\n" << endl;
-
-    Circulo circle_01(5);
+    int var1;
+    int var2;
+cin>>var1;
+    Circulo circle_01(var1);
     circle_01.dibujar();
     circle_01.calculo_area();
     cout << circle_01 << endl;
-
-    Rectangulo rectangle_01(5,10);
+    cin>>var1;
+    cin>>var2;
+    Rectangulo rectangle_01(var1,var2);
     rectangle_01.dibujar();
     rectangle_01.calculo_area();
     cout << rectangle_01 << endl;
-
-    Triangulo Triangle_01(5,4);
+    cin>>var1;
+    cin>>var2;
+    Triangulo Triangle_01(var1,var2);
     Triangle_01.dibujar();
     Triangle_01.calculo_area();
     cout << Triangle_01 << endl;

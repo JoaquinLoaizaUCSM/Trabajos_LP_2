@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <memory>
 
 using namespace std;
 
@@ -32,14 +30,20 @@ public:
 };
 
 int main() {
-    vector<unique_ptr<Animal>> animales;        //
-    animales.push_back(make_unique<Perro>());
-    animales.push_back(make_unique<Pajaro>());
+    Animal* ptrAnimal1;
+    Animal* ptrAnimal2;
 
-    for (const auto& animal : animales) {
-        animal->hacerSonido();
-        animal->moverse();
-    }
+    Perro perro1;
+    Pajaro pajaro1;
+
+    ptrAnimal1 = &perro1;
+    ptrAnimal2 = &pajaro1;
+
+    ptrAnimal1->hacerSonido();
+    ptrAnimal1->moverse();
+
+    ptrAnimal2->hacerSonido();
+    ptrAnimal2->moverse();
 
     return 0;
 }

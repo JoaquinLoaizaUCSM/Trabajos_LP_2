@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <memory>
 
 using namespace std;
 
@@ -23,6 +21,7 @@ public:
     }
 private:
     double radio;
+
 };
 
 class Rectangulo : public Forma {
@@ -64,7 +63,7 @@ private:
 
 
 int main() {
-    vector<unique_ptr<Forma>> formas;
+
     int opcion;
 
     while (true) {
@@ -73,16 +72,16 @@ int main() {
 
         if (opcion == 0) break;
 
-        unique_ptr<Forma> forma;
+        Forma* forma;
         switch (opcion) {
             case 1:
-                forma = make_unique<Circulo>();
+                forma = new Circulo();
                 break;
             case 2:
-                forma = make_unique<Rectangulo>();
+                forma = new Rectangulo();
                 break;
             case 3:
-                forma = make_unique<Triangulo>();
+                forma = new Triangulo();
                 break;
             default:
                 cout << "Opcion no valida." << endl;
@@ -91,7 +90,8 @@ int main() {
 
         forma->leerDatos();
         cout << "El perimetro es: " << forma->calcularPerimetro() << endl;
-        formas.push_back(std::move(forma));
+        delete forma;
+        break;
     }
 
     return 0;

@@ -20,7 +20,7 @@ private:
     float salario;
 
 public:
-    Empleado_Completo(string name, string last_name, int code, int hours_base, int hours_ext,bool state = true, float salary = 0){
+    Empleado_Completo(string name, string last_name, int code, int hours_base, int hours_ext, float salary = 0,bool state = true){
         this -> nombre = name;
         this -> apellido = last_name;
         this -> codigo = code;
@@ -43,16 +43,16 @@ public:
         cout << "Empleado " << this -> nombre << " despedido." << endl;
     }
 
-    friend ostream& operator << ( ostream& rt, Empleado_Completo Grossman) {
-        if (Grossman.estado == 0) {
-            rt << "Estado -> Despedido" << endl;
-        } else {
-            rt << "Estado -> Trabajando" << endl;
+    friend ostream& operator << ( ostream& rt, Empleado_Completo Grossman){
+        if (Grossman.estado == 0){
+            rt << "Despedido" << endl;
+        } else{
+            rt << "Trabajando" << endl;
         }
-        rt << "Nombre Completo -> " << Grossman.nombre << " " << Grossman.apellido << endl;
-        rt << "Codigo -> " << Grossman.codigo << endl;
-        rt << "Salario -> " << Grossman.salario << endl;
-        rt << "Horas -> " << Grossman.horas_trabajo + Grossman.horas_extra << endl;
+        rt << Grossman.nombre << " " << Grossman.apellido << endl;
+        rt << Grossman.codigo << endl;
+        rt << "Horas Trabajadas: " << Grossman.horas_extra+Grossman.horas_trabajo << endl;
+        rt << Grossman.salario << endl;
         return rt;
     }
 
@@ -94,17 +94,17 @@ public:
         cout << "Empleado " << this ->nombre << " despedido por lavado de dinero." << endl;
     }
 
-    friend ostream& operator << ( ostream& rt, Empleado_Medio Grossman) {
-        if (Grossman.estado == 0) {
-            rt << "Estado -> Despedido" << endl;
-        } else {
-            rt << "Estado -> Trabajando" << endl;
+    friend ostream& operator << ( ostream& os, Empleado_Medio Grossman){
+        if (Grossman.estado == 0){
+            os << "Esta despedido" << endl;
+        } else{
+            os << "Esta trabajando" << endl;
         }
-        rt << "Nombre Completo -> " << Grossman.nombre << " " << Grossman.apellido << endl;
-        rt << "Codigo -> " << Grossman.codigo << endl;
-        rt << "Salario -> " << Grossman.salario << endl;
-        rt << "Horas -> " << Grossman.horas_trabajo + Grossman.horas_extra << endl;
-        return rt;
+        os << Grossman.nombre << " " << Grossman.apellido << endl;
+        os << Grossman.codigo << endl;
+        os << "Horas Trabajadas: " << Grossman.horas_extra+Grossman.horas_trabajo << endl;
+        os << Grossman.salario << endl;
+        return os;
     }
 
 };

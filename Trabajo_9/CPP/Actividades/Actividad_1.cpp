@@ -36,7 +36,7 @@ int main(){
     //Es una "Asignación dinámica", es decir que permanecerá en la memoria hasta que lo borremos
     //Nos ayuda a trabajar mejor con el polimorfismo
 
-    Animal* perrito = new Perro("xd",18,"Chitsu");
+    Animal* perrito = new Perro("Perrito",180,"Chitsu");
 
     //Se usa la flechita porque se trabaja con un puntero
     perrito->hacersonido();
@@ -46,7 +46,7 @@ int main(){
 
     cout << "Estatico (STACK): " << endl;
     Animal animalito;
-    animalito = Perro("waos",2,"o");
+    animalito = Perro("waos",20,"Bulldog");
 
     animalito.hacersonido();
 

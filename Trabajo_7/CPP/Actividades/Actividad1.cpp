@@ -6,10 +6,10 @@ class cliente{
 
 public:
     string nombre;
-    int telefono{};
+    int telefono;
     string correo;
     string cuentaBancaria;
-    double monto{};
+    double monto;
 
     cliente(string nombre, int telefono, const string& correo, const string& cuentaBancaria, double monto){
         this -> nombre = nombre;

@@ -6,10 +6,10 @@ class cliente{
 
 protected:
     string nombre;
-    int telefono{};
+    int telefono;
     string correo;
     string cuentaBancaria;
-    double monto{};
+    double monto;
 
     static string encriptarInformacion(string informacion, int desplazamiento=3) {
         string resultado;

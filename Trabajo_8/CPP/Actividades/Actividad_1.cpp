@@ -1,17 +1,14 @@
 #include <iostream>
-
 using namespace std;
 
 class Figura {
     public:
-
         virtual double calcularArea() const = 0;
 };
 
 class Circulo : public Figura {
     public:
         explicit Circulo(double r=1) : radio(r) {}
-
         double calcularArea() const override {
             return 3.14 * radio * radio;
         }
@@ -23,7 +20,6 @@ class Circulo : public Figura {
 class Rectangulo : public Figura {
     public:
         explicit Rectangulo(double w=1, double h=1) : ancho(w), alto(h) {}
-
         double calcularArea() const override {
             return ancho * alto;
         }
@@ -36,7 +32,6 @@ class Rectangulo : public Figura {
 class Cuadrado : public Figura {
     public:
         explicit Cuadrado(double l=1) : lado(l) {}
-
         double calcularArea() const override {
             return lado * lado;
         }
@@ -48,7 +43,6 @@ class Cuadrado : public Figura {
 class Pentagono : public Figura {
     public:
         explicit Pentagono(double l=1) : lado(l) {}
-
         double calcularArea() const override {
             return 1.72 * lado * lado;
         }
@@ -60,7 +54,6 @@ class Pentagono : public Figura {
 class Triangulo : public Figura {
     public:
         explicit Triangulo(double b=1, double h=1) : base(b), altura(h) {}
-
         double calcularArea() const override {
             return 0.5 * base * altura;
         }

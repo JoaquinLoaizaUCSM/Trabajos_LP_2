@@ -104,7 +104,8 @@ int main(){
             return 0;
         }
 
-        while (Rep_01.getmodo()){
+        while (Rep_01.getmodo())
+        {
             int election;
             menu_acciones_rep();
             election = verificar(4);
@@ -118,6 +119,5 @@ int main(){
                 Rep_01.detener();
             }
         }
-
     }
 }

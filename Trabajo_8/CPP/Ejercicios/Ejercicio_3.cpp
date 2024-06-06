@@ -20,7 +20,7 @@ private:
     float salario;
 
 public:
-    Empleado_Completo(string name, string last_name, int code, int hours_base, int hours_ext, bool state = true, float salary = 0){
+    Empleado_Completo(string name, string last_name, int code, int hours_base, int hours_ext, float salary = 0,bool state = true){
         this -> nombre = name;
         this -> apellido = last_name;
         this -> codigo = code;
@@ -40,23 +40,24 @@ public:
         this -> horas_trabajo = 0;
         this -> horas_extra = 0;
         this -> salario = 0;
-        cout << "Empleado " << this ->nombre << " despedido." << endl;
+        cout << "Empleado " << this -> nombre << " despedido." << endl;
     }
 
-    friend ostream& operator <<(ostream& os, Empleado_Completo EmpC_01){
-        os << "Caracteristicas del Empleado:" << endl;
-        if (EmpC_01.estado = true){
-            os << "Estado    -> Trabajando" << endl;
+    friend ostream& operator << ( ostream& rt, Empleado_Completo Grossman){
+        if (Grossman.estado == 0){
+            rt << "Despedido" << endl;
         } else{
-            os << "Estado    -> Despedido" << endl;
+            rt << "Trabajando" << endl;
         }
-        os << "Nombre    -> " << EmpC_01.nombre << endl;
-        os << "Apellido  -> "<< EmpC_01.apellido << endl;
-        os << "Codigo    -> " << EmpC_01.codigo << endl;
-        os << "Trabajo   -> " << EmpC_01.horas_extra + EmpC_01.horas_trabajo << " horas." << endl;
-        os << "Salario   -> s/" << EmpC_01.salario << endl;
-        return os;
+        rt << Grossman.nombre << " " << Grossman.apellido << endl;
+        rt << Grossman.codigo << endl;
+        rt << "Horas Trabajadas: " << Grossman.horas_extra+Grossman.horas_trabajo << endl;
+        rt << Grossman.salario << endl;
+        return rt;
     }
+
+
+
 };
 
 class Empleado_Medio : public Empleado{
@@ -93,20 +94,19 @@ public:
         cout << "Empleado " << this ->nombre << " despedido por lavado de dinero." << endl;
     }
 
-    friend ostream& operator <<(ostream& os, Empleado_Medio EmpM_01){
-        os << "Caracteristicas del Empleado:" << endl;
-        if (EmpM_01.estado = true){
-            os << "Estado    -> Trabajando" << endl;
+    friend ostream& operator << ( ostream& os, Empleado_Medio Grossman){
+        if (Grossman.estado == 0){
+            os << "Esta despedido" << endl;
         } else{
-            os << "Estado    -> Despedido" << endl;
+            os << "Esta trabajando" << endl;
         }
-        os << "Nombre    -> " << EmpM_01.nombre << endl;
-        os << "Apellido  -> "<< EmpM_01.apellido << endl;
-        os << "Codigo    -> " << EmpM_01.codigo << endl;
-        os << "Trabajo   -> " << EmpM_01.horas_trabajo + EmpM_01.horas_extra << " horas." << endl;
-        os << "Salario   -> s/" << EmpM_01.salario << endl;
+        os << Grossman.nombre << " " << Grossman.apellido << endl;
+        os << Grossman.codigo << endl;
+        os << "Horas Trabajadas: " << Grossman.horas_extra+Grossman.horas_trabajo << endl;
+        os << Grossman.salario << endl;
         return os;
     }
+
 };
 
 int main() {
@@ -115,8 +115,7 @@ int main() {
     Empleado_Completo Grossman("Grossman","Vargas", 123456789, 20, 2);
 
     Grossman.calcular_Salario();
-    cout << Grossman << "\n";
-
+    cout << Grossman;
     Grossman.despedir();
     cout << Grossman;
 
@@ -125,7 +124,7 @@ int main() {
     Empleado_Medio Yhosfer("Yhosfer", "Quispe", 987654321, 50, 5);
 
     Yhosfer.calcular_Salario();
-    cout << Yhosfer << "\n";
+    cout << Yhosfer;
 
     Yhosfer.despedir();
     cout << Yhosfer;

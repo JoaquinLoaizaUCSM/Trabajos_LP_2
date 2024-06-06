@@ -6,10 +6,10 @@ class cliente{
 
 protected:
     string nombre;
-    int telefono{};
+    int telefono;
     string correo;
     string cuentaBancaria;
-    double monto{};
+    double monto;
 
     static string encriptarInformacion(string informacion, int desplazamiento=3) {
         string resultado;
@@ -51,7 +51,7 @@ public:
 
 
 
-class clienteSeguro : public cliente {
+class clienteSeguro : protected cliente {
 private:
     string claveEncriptada;
 
@@ -81,7 +81,6 @@ public:
     {
         return claveEncriptada;
     }
-
     static string encriptarInformacion(string informacion, int desplazamiento=3) {
         string resultado;
         for (int i = 0; i < informacion.length(); i++) {
@@ -101,6 +100,9 @@ public:
     ~clienteSeguro() {
         cout << "Destructor Cliente seguro ejecutado." << endl;
     };
+    void imprimir(){
+        cout << *this<< endl;
+    }
 };
 
 
@@ -115,7 +117,7 @@ int main(){
                                            "1234");
 
 
-    cout << grossman << endl;
+    grossman.imprimir();
 
     cout << "Clave encriptada: " << grossman.getClaveEncriptada() << endl;
 

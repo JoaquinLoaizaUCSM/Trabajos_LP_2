@@ -1,10 +1,15 @@
 #include <iostream>
 using namespace std;
-
+//class interfaz - base
 class Animal{
 public:
     virtual void hacerSonido() = 0;
+    virtual ostream& operator<<(ostream& os) const = 0;
 };
+
+ostream& operator<<(ostream& os, const Animal& animal) {
+    return animal.operator<<(os);
+}
 
 class Perro : public Animal{
 private:
@@ -21,9 +26,9 @@ public:
         cout << "Miau" << endl;
     }
 
-    friend ostream& operator << (ostream& os, Perro perrito){
-        os << "Nombre -> " << perrito.nombre << endl;
-        os << "Edad -> " << perrito.edad << endl;
+    ostream& operator<<(ostream& os) const override {
+        os << "Nombre -> " << nombre << endl;
+        os << "Edad -> " << edad << endl;
         return os;
     }
 
@@ -44,9 +49,9 @@ public:
         cout << "Guau" << endl;
     }
 
-    friend ostream& operator << (ostream& os, Gato &gatito){
-        os << "Nombre -> " << gatito.nombre << endl;
-        os << "Edad -> " << gatito.edad << endl;
+    ostream& operator<<(ostream& os) const override {
+        os << "Nombre -> " << nombre << endl;
+        os << "Edad -> " << edad << endl;
         return os;
     }
 };
@@ -66,9 +71,9 @@ public:
         cout << "Invadamos Polonia" << endl;
     }
 
-    friend ostream& operator << (ostream& os, Vaca &vaquita) {
-        os << "Nombre -> " << vaquita.nombre << endl;
-        os << "Edad -> " << vaquita.edad << endl;
+    ostream& operator<<(ostream& os) const override {
+        os << "Nombre -> " << nombre << endl;
+        os << "Edad -> " << edad << endl;
         return os;
     }
 };
@@ -78,13 +83,8 @@ int main(){
     Animal* gatito = new Gato("Steve", 9);
     Animal* vaquita = new Vaca("Dario", 2);
 
-    Animal *arreglo[3] = {perrito, gatito, vaquita};
 
-
-    //Los animales estan actuando extraño
-    for (Animal *p : arreglo){
-        p->hacerSonido();
-    }
+    cout << *perrito ;
 
 
 

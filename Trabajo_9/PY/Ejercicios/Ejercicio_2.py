@@ -64,3 +64,4 @@ if __name__ == "__main__":
         animal.comer()
         animal.dormir()
         animal.moverse()
+    

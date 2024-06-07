@@ -19,8 +19,10 @@ El proyecto se basa en la creación de una jerarquía de clases para representar
 Cada uno de estos empleados tiene atributos comunes como nombre, salario y fecha de contratación, además de un método virtual `calcularSalario()` que se sobreescribe en cada clase derivada para calcular el salario de cada empleado.
 
 ## Diagrama de clases
-
+![Diagrama de Clases](diagrama_clases.png)
 
 ## Diagrama de secuencia
+
+![Diagrama de secuencia](Secuencia.png)
 
 

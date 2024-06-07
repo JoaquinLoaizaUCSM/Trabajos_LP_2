@@ -1,0 +1,47 @@
+@startuml
+class Empleados {
+  -nombre : string
+  -salario : double
+  -fechaContratacion : int
+  +Empleados(nombre : string, salario : double, fechaContratacion : int)
+  +virtual calcularSalario() : double = 0
+  +virtual mostrarDatos() : void = 0
+}
+
+class Gerente {
+  -departamento : string
+  -bono : double
+  +Gerente(nombre : string, salario : double, fechaContratacion : int, departamento : string, bono : double)
+  +calcularSalario() : double
+  +mostrarDatos() : void
+}
+
+class Desarrollador {
+  -lenguaje : string
+  -horasExtra : int
+  +Desarrollador(nombre : string, salario : double, fechaContratacion : int, lenguaje : string, horasExtra : int)
+  +calcularSalario() : double
+  +mostrarDatos() : void
+}
+
+class Diseñador {
+  -tipo : string
+  -proyectos : int
+  +Diseñador(nombre : string, salario : double, fechaContratacion : int, tipo : string, proyectos : int)
+  +calcularSalario() : double
+  +mostrarDatos() : void
+}
+
+class Tester {
+  -tipo : string
+  -bugs : int
+  +Tester(nombre : string, salario : double, fechaContratacion : int, tipo : string, bugs : int)
+  +calcularSalario() : double
+  +mostrarDatos() : void
+}
+
+Empleados <|-- Gerente
+Empleados <|-- Desarrollador
+Empleados <|-- Diseñador
+Empleados <|-- Tester
+@enduml

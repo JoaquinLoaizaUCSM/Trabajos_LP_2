@@ -4,7 +4,7 @@ using namespace std;
 
 class Forma{
 public:
-    virtual void cambiarPropiedades() = 0;
+    virtual void ingresarPropiedades() = 0;
     virtual void calcularArea() const= 0;
     virtual void calcularPerimetro() const = 0;
     virtual void especificaciones() const = 0;
@@ -22,7 +22,7 @@ public:
         this -> diametro = 2*radio;
     }
 
-    void cambiarPropiedades() override{
+    void ingresarPropiedades() override{
         int r;
         cout << "Ingrese el nuevo radio -> ";
         cin >> r;
@@ -59,7 +59,7 @@ public:
         this -> altura = h;
     }
 
-    void cambiarPropiedades() override{
+    void ingresarPropiedades() override{
         int b;
         int h;
         cout << "Ingrese la nueva base -> ";
@@ -101,7 +101,7 @@ public:
         this -> hipotenusa = sqrt((b*b)+(h*h));
     }
 
-    void cambiarPropiedades() override{
+    void ingresarPropiedades() override{
         int b;
         int h;
         cout << "Ingrese la nueva base -> ";
@@ -148,7 +148,7 @@ public:
         this -> lado2 = l2;
     }
 
-    void cambiarPropiedades() override{
+    void ingresarPropiedades() override{
         int bMayor, bMenor, h, l1, l2;
         cout << "Ingrese la nueva base mayor -> ";
         cin >> bMayor;
@@ -196,26 +196,66 @@ void menu_figuras(){
     cout << "4 -> Trapecio" << endl;
 }
 
-int validacion(int end){
-    int num;
-    while (true){
-        cin >> num;
-        for (int i = 0, end){
-            if (num == i){
-                return num;
-            }
+bool validacion(int i, int end){
+    for (int x = 0; x < end; x++){
+        if ( x == i ){
+            return true;
         }
     }
+    return false;
 }
 
-int main(){
-    while (true){
-        menu_figuras()
+//Menu provisional en caso de querer expandir el codigo con un menu interno de figuras
+void menu_interno(){
+    cout << "0 -> Salir" << endl;
+    cout << "1 -> Calcular Perimetro" << endl;
+    cout << "2 -> Calcular Area" << endl;
+    cout << "3 -> Mostrar Detalles" << endl;
+}
+
+int main() {
+    while (true) {
+        menu_figuras();
+        int opc;
+        cout << "Ingrese una opcion: " << endl;
+        cin >> opc;
+        while (!validacion(opc, 5)) {
+            cout << "Ingrese una opcion: " << endl;
+            cin >> opc;
+        }
+        switch (opc) {
+            case 0: {
+                return 0;
+            }
+
+            case 1: {
+                Circulo circulito;
+                circulito.ingresarPropiedades();
+                circulito.especificaciones();
+                break;
+            }
+
+            case 2: {
+                Rectangulo rectangulito;
+                rectangulito.ingresarPropiedades();
+                rectangulito.especificaciones();
+                break;
+            }
+
+            case 3: {
+                Triangulo triangulito;
+                triangulito.ingresarPropiedades();
+                triangulito.especificaciones();
+                break;
+            }
+
+            case 4: {
+                Trapecio trapecito;
+                trapecito.ingresarPropiedades();
+                trapecito.especificaciones();
+                break;
+            }
+
+        }
     }
-
-
-
-
-
-    return 0;
 }

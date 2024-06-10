@@ -1,9 +1,6 @@
 #include <iostream>
 using namespace std;
-#include <math.h>
 #include <cstdlib>
-#include <ctime>
-
 
 class Animales{
 public:
@@ -36,230 +33,166 @@ public:
 
     void dormir() override{
         cout << "El animal durmio satisfactoriamente; salud aumentada en 1" << endl;
+        this -> estado_salud += 1;
     }
 
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << 3.14 * (diametro) << endl;
+    void lastimar() override{
+        cout << "El animal se lastimo; salud reducida en 2" << endl;
+        this -> estado_salud -= 1;
+    }
+
+    void moverse() override{
+        cout << "El animal se movio un paso adelante." << endl;
+        this -> posicion;
     }
 
     void especificaciones() const override{
-        cout << "Datos del Circulo: " << endl;
-        cout << "Radio -> " << this -> radio << endl;
-        cout << "Diametro -> " << this -> diametro << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
+        cout << "Datos del Mamifero encontrado en la posicion " << this -> posicion << " :" << endl;
+        cout << "Nivel de saciedad -> " << this -> saciedad << endl;
     }
 };
 
-
-class Rectangulo: public Forma{
+class Ave : public Animales {
 private:
-    int base;
-    int altura;
+    int saciedad;
+    int estado_salud;
+    int posicion;
 
 public:
-    Rectangulo(int b = 0, int h = 0){
-        this -> base = b;
-        this -> altura = h;
+    Ave(int s = 0, int h = 0, int p = 0) {
+        this -> saciedad = s;
+        this -> estado_salud = h;
+        this -> posicion = p;
     }
 
-    void ingresarPropiedades() override{
-        int b;
-        int h;
-        cout << "Ingrese la nueva base -> ";
-        cin >> b;
-        cout << "Ingrese la nueva altura -> ";
-        cin >> h;
-        this -> base = b;
-        this -> altura = h;
+    void comer() override {
+        int valor = rand() % 3 + 2;
+        cout << "Su nivel de saciedad ha aumentado en " << valor << endl;
+        this -> saciedad += valor;
     }
 
-    void calcularArea() const override{
-        cout << "Area: " << base * altura << endl;
+    void dormir() override {
+        cout << "El ave durmio satisfactoriamente; salud aumentada en 2" << endl;
+        this -> estado_salud += 2;
     }
 
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << 2*(base+altura) << endl;
+    void lastimar() override {
+        cout << "El ave se lastimo las alas; salud reducida en 3" << endl;
+        this -> estado_salud -= 3;
     }
 
-    void especificaciones() const override{
-        cout << "Datos del Rectangulo: " << endl;
-        cout << "Base -> " << this -> base << endl;
-        cout << "Altura -> " << this -> altura << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
+    void moverse() override {
+        cout << "El ave volo una milla." << endl;
+        this -> posicion += 1000;
+    }
+
+    void especificaciones() const override {
+        cout << "Datos del Ave encontrada en la posicion " << this -> posicion << " :" << endl;
+        cout << "Nivel de saciedad -> " << this -> saciedad << endl;
+        cout << "Estado de salud -> " << this -> estado_salud << endl;
     }
 };
 
-
-class Triangulo: public Forma{
+class Reptil : public Animales {
 private:
-    int base;
-    int altura;
-    int hipotenusa;
+    int saciedad;
+    int estado_salud;
+    int posicion;
 
 public:
-    Triangulo(int b = 0, int h = 0){
-        this -> base = b;
-        this -> altura = h;
-        this -> hipotenusa = sqrt((b*b)+(h*h));
+    Reptil(int s = 0, int h = 0, int p = 0) {
+        this -> saciedad = s;
+        this -> estado_salud = h;
+        this -> posicion = p;
     }
 
-    void ingresarPropiedades() override{
-        int b;
-        int h;
-        cout << "Ingrese la nueva base -> ";
-        cin >> b;
-        cout << "Ingrese la nueva altura -> ";
-        cin >> h;
-        this -> base = b;
-        this -> altura = h;
-        this -> hipotenusa = sqrt((b*b)+(h*h));
+    void comer() override {
+        int valor = rand() % 3 + 3;
+        cout << "Su nivel de saciedad ha aumentado en " << valor << endl;
+        this -> saciedad += valor;
     }
 
-    void calcularArea() const override{
-        cout << "Area: " << (base * altura)/2 << endl;
+    void dormir() override {
+        cout << "El reptil durmio satisfactoriamente; salud aumentada en 4" << endl;
+        this -> estado_salud += 4;
     }
 
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << (base+altura+hipotenusa) << endl;
+    void lastimar() override {
+        cout << "El reptil se partio a la mitad; salud multiplicada por 2" << endl;
+        this -> estado_salud *= 2;
     }
 
-    void especificaciones() const override{
-        cout << "Datos del Triangulo: " << endl;
-        cout << "Base -> " << this -> base << endl;
-        cout << "Altura -> " << this -> altura << endl;
-        cout << "Hipotenusa -> " << this -> hipotenusa << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
+    void moverse() override {
+        cout << "El reptil se movio." << endl;
+        this -> posicion += -1;
     }
+
+    void especificaciones() const override {
+        cout << "Datos del Reptil encontrado en la posicion " << this -> posicion << " :" << endl;
+        cout << "Nivel de saciedad -> " << this -> saciedad << endl;
+        cout << "Estado de salud -> " << this -> estado_salud << endl;
+    }
+
 };
 
-class Trapecio: public Forma{
-private:
-    int baseMayor;
-    int baseMenor;
-    int altura;
-    int lado1;
-    int lado2;
-
-public:
-    Trapecio(int bMayor = 0, int bMenor = 0, int h = 0, int l1 = 0, int l2 = 0){
-        this -> baseMayor = bMayor;
-        this -> baseMenor = bMenor;
-        this -> altura = h;
-        this -> lado1 = l1;
-        this -> lado2 = l2;
-    }
-
-    void ingresarPropiedades() override{
-        int bMayor, bMenor, h, l1, l2;
-        cout << "Ingrese la nueva base mayor -> ";
-        cin >> bMayor;
-        cout << "Ingrese la nueva base menor -> ";
-        cin >> bMenor;
-        cout << "Ingrese la nueva altura -> ";
-        cin >> h;
-        cout << "Ingrese el nuevo lado 1 -> ";
-        cin >> l1;
-        cout << "Ingrese el nuevo lado 2 -> ";
-        cin >> l2;
-        this -> baseMayor = bMayor;
-        this -> baseMenor = bMenor;
-        this -> altura = h;
-        this -> lado1 = l1;
-        this -> lado2 = l2;
-    }
-
-    void calcularArea() const override{
-        cout << "Area: " << ((baseMayor + baseMenor) * altura) / 2 << endl;
-    }
-
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << baseMayor + baseMenor + lado1 + lado2 << endl;
-    }
-
-    void especificaciones() const override{
-        cout << "Datos del Trapecio: " << endl;
-        cout << "Base Mayor -> " << this -> baseMayor << endl;
-        cout << "Base Menor -> " << this -> baseMenor << endl;
-        cout << "Altura -> " << this -> altura << endl;
-        cout << "Lado 1 -> " << this -> lado1 << endl;
-        cout << "Lado 2 -> " << this -> lado2 << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
-    }
-};
-
-void menu_figuras(){
+void menu_animales() {
     cout << "Crear: " << endl;
     cout << "0 -> Finalizar Programa" << endl;
-    cout << "1 -> Circulo" << endl;
-    cout << "2 -> Rectangulo" << endl;
-    cout << "3 -> Triangulo" << endl;
-    cout << "4 -> Trapecio" << endl;
+    cout << "1 -> Ave" << endl;
+    cout << "2 -> Reptil" << endl;
+    cout << "3 -> Mamifero" << endl;
 }
 
-bool validacion(int i, int end){
-    for (int x = 0; x < end; x++){
-        if ( x == i ){
+bool validacion(int i, int end) {
+    for (int x = 0; x < end; x++) {
+        if (x == i) {
             return true;
         }
     }
     return false;
 }
 
-//Menu provisional en caso de querer expandir el codigo con un menu interno de figuras
-void menu_interno(){
-    cout << "0 -> Salir" << endl;
-    cout << "1 -> Calcular Perimetro" << endl;
-    cout << "2 -> Calcular Area" << endl;
-    cout << "3 -> Mostrar Detalles" << endl;
-}
-
 int main() {
     while (true) {
-        menu_figuras();
+        menu_animales();
         int opc;
         cout << "Ingrese una opcion: " << endl;
         cin >> opc;
-        while (!validacion(opc, 5)) {
-            cout << "Ingrese una opcion: " << endl;
+        while (!validacion(opc, 4)) {
+            cout << "Ingrese una opcion valida: " << endl;
             cin >> opc;
         }
         switch (opc) {
             case 0: {
                 return 0;
             }
-
             case 1: {
-                Circulo circulito;
-                circulito.ingresarPropiedades();
-                circulito.especificaciones();
+                Ave ave;
+                ave.comer();
+                ave.dormir();
+                ave.moverse();
+                ave.lastimar();
+                ave.especificaciones();
                 break;
             }
-
             case 2: {
-                Rectangulo rectangulito;
-                rectangulito.ingresarPropiedades();
-                rectangulito.especificaciones();
+                Reptil reptil;
+                reptil.comer();
+                reptil.dormir();
+                reptil.moverse();
+                reptil.lastimar();
+                reptil.especificaciones();
                 break;
             }
-
             case 3: {
-                Triangulo triangulito;
-                triangulito.ingresarPropiedades();
-                triangulito.especificaciones();
+                Mamifero mamifero;
+                mamifero.comer();
+                mamifero.dormir();
+                mamifero.moverse();
+                mamifero.lastimar();
+                mamifero.especificaciones();
                 break;
             }
-
-            case 4: {
-                Trapecio trapecito;
-                trapecito.ingresarPropiedades();
-                trapecito.especificaciones();
-                break;
-            }
-
         }
     }
 }

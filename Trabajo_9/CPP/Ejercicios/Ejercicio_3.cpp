@@ -1,206 +1,14 @@
 #include <iostream>
 using namespace std;
 
-class Empleados{
-public:
-    virtual void calcularSalario() const = 0;
-    virtual void agregarBono() = 0;
+//Funciones extra
+void menu_bono(){
+    cout << "Ingrese el bono correspondiente: " << endl;
+    cout << "0 -> s/0" << endl;
+    cout << "1 -> s/50" << endl;
+    cout << "2 -> s/100" << endl;
+    cout << "3 -> s/150" << endl;
 };
-
-void menu(){
-    ;
-}
-class Asalariados : public Empleados{
-private:
-    string nombre;
-    string apellido;
-    int codigo;
-    int bono;
-    int const salario = 1000;
-
-public:
-    Asalariados(string n , string l, int code, int b = 0){
-        this -> nombre = n;
-        this -> apellido = l;
-        this -> codigo = code;
-        this -> bono = b;
-    }
-
-    void calcularSalario() const override{
-        cout << "Salario -> " << salario + bono << endl;
-    }
-
-    void agregarBono() override{
-        int extra;
-        cout << "" << endl;
-
-    }
-
-    void calcularArea() const override{
-        cout << "Area: " << 3.14 * (radio * radio) << endl;
-    }
-
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << 3.14 * (diametro) << endl;
-    }
-
-    void especificaciones() const override{
-        cout << "Datos del Circulo: " << endl;
-        cout << "Radio -> " << this -> radio << endl;
-        cout << "Diametro -> " << this -> diametro << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
-    }
-};
-
-
-class Rectangulo: public Forma{
-private:
-    int base;
-    int altura;
-
-public:
-    Rectangulo(int b = 0, int h = 0){
-        this -> base = b;
-        this -> altura = h;
-    }
-
-    void ingresarPropiedades() override{
-        int b;
-        int h;
-        cout << "Ingrese la nueva base -> ";
-        cin >> b;
-        cout << "Ingrese la nueva altura -> ";
-        cin >> h;
-        this -> base = b;
-        this -> altura = h;
-    }
-
-    void calcularArea() const override{
-        cout << "Area: " << base * altura << endl;
-    }
-
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << 2*(base+altura) << endl;
-    }
-
-    void especificaciones() const override{
-        cout << "Datos del Rectangulo: " << endl;
-        cout << "Base -> " << this -> base << endl;
-        cout << "Altura -> " << this -> altura << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
-    }
-};
-
-
-class Triangulo: public Forma{
-private:
-    int base;
-    int altura;
-    int hipotenusa;
-
-public:
-    Triangulo(int b = 0, int h = 0){
-        this -> base = b;
-        this -> altura = h;
-        this -> hipotenusa = sqrt((b*b)+(h*h));
-    }
-
-    void ingresarPropiedades() override{
-        int b;
-        int h;
-        cout << "Ingrese la nueva base -> ";
-        cin >> b;
-        cout << "Ingrese la nueva altura -> ";
-        cin >> h;
-        this -> base = b;
-        this -> altura = h;
-        this -> hipotenusa = sqrt((b*b)+(h*h));
-    }
-
-    void calcularArea() const override{
-        cout << "Area: " << (base * altura)/2 << endl;
-    }
-
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << (base+altura+hipotenusa) << endl;
-    }
-
-    void especificaciones() const override{
-        cout << "Datos del Triangulo: " << endl;
-        cout << "Base -> " << this -> base << endl;
-        cout << "Altura -> " << this -> altura << endl;
-        cout << "Hipotenusa -> " << this -> hipotenusa << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
-    }
-};
-
-class Trapecio: public Forma{
-private:
-    int baseMayor;
-    int baseMenor;
-    int altura;
-    int lado1;
-    int lado2;
-
-public:
-    Trapecio(int bMayor = 0, int bMenor = 0, int h = 0, int l1 = 0, int l2 = 0){
-        this -> baseMayor = bMayor;
-        this -> baseMenor = bMenor;
-        this -> altura = h;
-        this -> lado1 = l1;
-        this -> lado2 = l2;
-    }
-
-    void ingresarPropiedades() override{
-        int bMayor, bMenor, h, l1, l2;
-        cout << "Ingrese la nueva base mayor -> ";
-        cin >> bMayor;
-        cout << "Ingrese la nueva base menor -> ";
-        cin >> bMenor;
-        cout << "Ingrese la nueva altura -> ";
-        cin >> h;
-        cout << "Ingrese el nuevo lado 1 -> ";
-        cin >> l1;
-        cout << "Ingrese el nuevo lado 2 -> ";
-        cin >> l2;
-        this -> baseMayor = bMayor;
-        this -> baseMenor = bMenor;
-        this -> altura = h;
-        this -> lado1 = l1;
-        this -> lado2 = l2;
-    }
-
-    void calcularArea() const override{
-        cout << "Area: " << ((baseMayor + baseMenor) * altura) / 2 << endl;
-    }
-
-    void calcularPerimetro() const override{
-        cout << "Perimetro: " << baseMayor + baseMenor + lado1 + lado2 << endl;
-    }
-
-    void especificaciones() const override{
-        cout << "Datos del Trapecio: " << endl;
-        cout << "Base Mayor -> " << this -> baseMayor << endl;
-        cout << "Base Menor -> " << this -> baseMenor << endl;
-        cout << "Altura -> " << this -> altura << endl;
-        cout << "Lado 1 -> " << this -> lado1 << endl;
-        cout << "Lado 2 -> " << this -> lado2 << endl;
-        this -> calcularPerimetro();
-        this -> calcularArea();
-    }
-};
-
-void menu_figuras(){
-    cout << "Crear: " << endl;
-    cout << "0 -> Finalizar Programa" << endl;
-    cout << "1 -> Circulo" << endl;
-    cout << "2 -> Rectangulo" << endl;
-    cout << "3 -> Triangulo" << endl;
-    cout << "4 -> Trapecio" << endl;
-}
 
 bool validacion(int i, int end){
     for (int x = 0; x < end; x++){
@@ -211,57 +19,180 @@ bool validacion(int i, int end){
     return false;
 }
 
-//Menu provisional en caso de querer expandir el codigo con un menu interno de figuras
-void menu_interno(){
-    cout << "0 -> Salir" << endl;
-    cout << "1 -> Calcular Perimetro" << endl;
-    cout << "2 -> Calcular Area" << endl;
-    cout << "3 -> Mostrar Detalles" << endl;
+//Clases
+class Empleados{
+public:
+    virtual void calcularSalario() const = 0;
+    virtual void agregarBono() = 0;
+};
+
+class Asalariados : public Empleados {
+private:
+    string nombre;
+    string apellido;
+    int codigo;
+    int bono;
+    int const salario = 1000;
+
+public:
+    Asalariados(string n, string l, int code, int b = 0) {
+        this->nombre = n;
+        this->apellido = l;
+        this->codigo = code;
+        this->bono = b;
+    }
+
+    void calcularSalario() const override {
+        cout << "Salario c/bono -> " << salario + bono << endl;
+    }
+
+    void agregarBono() override {
+        menu_bono();
+        int extra;
+        cin >> extra;
+        while (!validacion(extra, 4)) {
+            cout << "Ingrese una opcion valida: " << endl;
+            cin >> extra;
+        }
+
+        switch (extra) {
+            case 0:
+                break;
+            case 1:
+                this->bono = 50;
+                break;
+            case 2:
+                this->bono = 100;
+                break;
+            case 3:
+                this->bono = 150;
+                break;
+        }
+    }
+
+    friend ostream& operator << (ostream& ou, Asalariados asalario){
+        ou << "Datos de empleado de nombre " << asalario.nombre + asalario.apellido << " :" << endl;
+        ou << "Codigo        -> " << asalario.codigo << endl;
+        ou << "Sueldo base   -> " << asalario.salario << endl;
+        asalario.agregarBono();
+        asalario.calcularSalario();
+        return ou;
+    }
+};
+
+class Por_hora: public Empleados {
+private:
+    string nombre;
+    string apellido;
+    int codigo;
+    int horas;
+    int bono;
+
+public:
+    Por_hora(string n, string l, int code, int hours = 0, int b = 0) {
+        this->nombre = n;
+        this->apellido = l;
+        this->codigo = code;
+        this->horas = hours;
+        this->bono = b;
+    }
+
+    void calcularSalario() const override {
+        cout << "Salario -> " << (horas * 50) + bono << endl;
+    }
+
+    void agregarBono() override {
+        int extra = horas * 25;
+        this -> bono = extra;
+        cout << "Siendo las horas trabajadas -> " << horas << " su bono es de " << extra << endl;
+    }
+
+    friend ostream& operator << (ostream& ou, Por_hora porHora){
+        ou << "Datos de empleado de nombre " << porHora.nombre + porHora.apellido << " :" << endl;
+        ou << "Codigo           -> " << porHora.codigo << endl;
+        ou << "Horas Trabajadas -> " << porHora.horas << endl;
+        porHora.agregarBono();
+        porHora.calcularSalario();
+        return ou;
+    }
+};
+
+
+class Comisionista: public Empleados{
+private:
+    string nombre;
+    string apellido;
+    int codigo;
+    int const precio_maquina = 1000;
+    int maquinas_vendidas;
+    int bono;
+
+public:
+    Comisionista(string n, string l, int code, int machines = 0, int b = 0) {
+        this->nombre = n;
+        this->apellido = l;
+        this->codigo = code;
+        this->maquinas_vendidas= machines;
+        this->bono = b;
+    }
+
+    void calcularSalario() const override {
+        cout << "Salario -> " << maquinas_vendidas*(precio_maquina * 0.25) + bono << endl;
+    }
+
+    void agregarBono() override {
+        int extra = maquinas_vendidas * 100;
+        this -> bono = extra;
+        cout << "Siendo las maquinas vendidas -> " << maquinas_vendidas << " su bono es de " << extra << endl;
+    }
+
+    friend ostream& operator << (ostream& ou, Comisionista comisionista){
+        ou << "Datos de empleado de nombre " << comisionista.nombre + comisionista.apellido << " :" << endl;
+        ou << "Codigo            -> " << comisionista.codigo << endl;
+        ou << "Maquinas Vendidas -> " << comisionista.maquinas_vendidas << endl;
+        comisionista.agregarBono();
+        comisionista.calcularSalario();
+        return ou;
+    }
+};
+
+void menu_empleados() {
+    cout << "Crear: " << endl;
+    cout << "0 -> Finalizar Programa" << endl;
+    cout << "1 -> Asalariado" << endl;
+    cout << "2 -> Por hora" << endl;
+    cout << "3 -> Comisionista" << endl;
 }
 
 int main() {
     while (true) {
-        menu_figuras();
+        menu_empleados();
         int opc;
         cout << "Ingrese una opcion: " << endl;
         cin >> opc;
-        while (!validacion(opc, 5)) {
-            cout << "Ingrese una opcion: " << endl;
+        while (!validacion(opc, 4)) {
+            cout << "Ingrese una opcion valida: " << endl;
             cin >> opc;
         }
         switch (opc) {
             case 0: {
                 return 0;
             }
-
             case 1: {
-                Circulo circulito;
-                circulito.ingresarPropiedades();
-                circulito.especificaciones();
+                Asalariados asalariado("Grossman ", "Vargas", 1);
+                cout << asalariado;
                 break;
             }
-
             case 2: {
-                Rectangulo rectangulito;
-                rectangulito.ingresarPropiedades();
-                rectangulito.especificaciones();
+                Por_hora porHora("Yhosfer ", "Quispe", 2, 40);
+                cout << porHora;
                 break;
             }
-
             case 3: {
-                Triangulo triangulito;
-                triangulito.ingresarPropiedades();
-                triangulito.especificaciones();
+                Comisionista comisionista("Luis ", "Pozu", 3, 10);
+                cout << comisionista;
                 break;
             }
-
-            case 4: {
-                Trapecio trapecito;
-                trapecito.ingresarPropiedades();
-                trapecito.especificaciones();
-                break;
-            }
-
         }
     }
 }

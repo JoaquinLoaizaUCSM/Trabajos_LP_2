@@ -6,16 +6,18 @@ class Empleados{
 protected:
     string nombre;
     double salario;
-    int fechaContratacion;
+    string fechaContratacion;
+
 public:
     Empleados(string nombre, double salario, int fechaContratacion){
-        this->nombre = nombre;
-        this->salario = salario;
-        this->fechaContratacion = fechaContratacion;
+        this -> nombre = nombre;
+        this -> salario = salario;
+        this -> fechaContratacion = fechaContratacion;
     }
 
     virtual double calcularSalario() = 0;
     virtual void mostrarDatos() = 0;
+    virtual void ingresarDatos() = 0;
 };
 
 class Gerente : public Empleados{
@@ -24,17 +26,17 @@ private:
     double bono;
 
 public:
-    Gerente(string nombre, double salario, int fechaContratacion, string departamento, double bono) :
-    Empleados(nombre, salario, fechaContratacion){
+    Gerente(string nombre = "", double salario = 0, int fechaContratacion = 0, string departamento = "", double bono = 0) :
+            Empleados(nombre, salario, fechaContratacion){
         this->departamento = departamento;
         this->bono = bono;
     }
 
-    double calcularSalario(){
+    double calcularSalario() override{
         return salario + bono;
     }
 
-    void mostrarDatos(){
+    void mostrarDatos() override {
         cout << "Nombre: " << nombre << endl;
         cout << "Salario: " << salario << endl;
         cout << "Fecha de contratacion: " << fechaContratacion << endl;
@@ -42,7 +44,17 @@ public:
         cout << "Bono: " << bono << endl;
     }
 
+    void ingresarDatos() override {
+        cout << "Ingreso de datos de Gerente" << endl;
+        cout << "   Nombre: "; cin >> nombre;
+        cout << "   Salario: "; cin >> salario;
+        cout << "   Fecha de contratacion: "; cin >> fechaContratacion;
+        cout << "   Departamento: "; cin >> departamento;
+        cout << "   Bono: "; cin >> bono;
+    }
 };
+
+
 
 class Desarrollador : public Empleados{
 
@@ -51,24 +63,39 @@ private:
     int horasExtra;
 
 public:
-    Desarrollador(string nombre, double salario, int fechaContratacion, string lenguaje, int horasExtra) :
-    Empleados(nombre, salario, fechaContratacion){
+    Desarrollador(string nombre = "", double salario = 0, int fechaContratacion = 0, string lenguaje = "", int horasExtra = 0) :
+            Empleados(nombre, salario, fechaContratacion){
         this->lenguaje = lenguaje;
         this->horasExtra = horasExtra;
     }
 
-    double calcularSalario(){
+    double calcularSalario() override {
         return salario + (horasExtra * 50);
     }
 
-    void mostrarDatos(){
+    void mostrarDatos() override {
         cout << "Nombre: " << nombre << endl;
         cout << "Salario: " << salario << endl;
         cout << "Fecha de contratacion: " << fechaContratacion << endl;
         cout << "Lenguaje: " << lenguaje << endl;
         cout << "Horas extra: " << horasExtra << endl;
     }
+    void ingresarDatos() override {
+        cout << "Ingreso de datos de Desarrollador" << endl;
+        cout << "   Nombre: ";
+        cin >> nombre;
+        cout << "   Salario: ";
+        cin >> salario;
+        cout << "   Fecha de contratacion: ";
+        cin >> fechaContratacion;
+        cout << "   Lenguaje:  ";
+        cin >> lenguaje;
+        cout << "   horasExtra:  ";
+        cin >> horasExtra;
+    }
 };
+
+
 
 class Diseñador : public Empleados{
 
@@ -77,22 +104,34 @@ private:
     int proyectos;
 
 public:
-    Diseñador(string nombre, double salario, int fechaContratacion, string tipo, int proyectos)
-    : Empleados(nombre, salario, fechaContratacion){
+    Diseñador(string nombre = "", double salario = 0, int fechaContratacion = 0, string tipo = "", int proyectos = 0)
+            : Empleados(nombre, salario, fechaContratacion){
         this->tipo = tipo;
         this->proyectos = proyectos;
     }
 
-    double calcularSalario(){
+    double calcularSalario() override {
         return salario + (proyectos * 100);
     }
 
-    void mostrarDatos(){
+    void mostrarDatos() override {
         cout << "Nombre: " << nombre << endl;
         cout << "Salario: " << salario << endl;
         cout << "Fecha de contratacion: " << fechaContratacion << endl;
         cout << "Tipo: " << tipo << endl;
         cout << "Proyectos: " << proyectos << endl;
+    }
+
+    void ingresarDatos() override {
+        cout << "Ingreso de datos de nuebo Diseñador" << endl;
+        cout << "   Nombre: ";
+        cin >> nombre;
+        cout << "   Salario: ";
+        cin >> salario;
+        cout << "   Fecha de contratacion: ";
+        cin >> fechaContratacion;
+        cout << "   Tipo de diseñador: ";
+        cin >> tipo;
     }
 };
 
@@ -103,22 +142,32 @@ private:
     int bugs;
 
 public:
-    Tester(string nombre, double salario, int fechaContratacion, string tipo, int bugs)
-    : Empleados(nombre, salario, fechaContratacion){
+    Tester(string nombre = "", double salario = 0, int fechaContratacion = 0, string tipo = "", int bugs = 0)
+            : Empleados(nombre, salario, fechaContratacion){
         this->tipo = tipo;
         this->bugs = bugs;
     }
 
-    double calcularSalario(){
+    double calcularSalario() override {
         return salario + (bugs * 10);
     }
 
-    void mostrarDatos(){
+    void mostrarDatos() override {
         cout << "Nombre: " << nombre << endl;
         cout << "Salario: " << salario << endl;
         cout << "Fecha de contratacion: " << fechaContratacion << endl;
         cout << "Tipo: " << tipo << endl;
         cout << "Bugs: " << bugs << endl;
+    }
+
+    void ingresarDatos() override {
+        cout << "Ingreso de datos de Tester" << endl;
+        cout << "   Nombre: "; cin >> nombre;
+        cout << "   Salario: "; cin >> salario;
+        cout << "   Fecha de contratacion: "; cin >> fechaContratacion;
+        cout << "   Tipo : "; cin >> tipo;
+        cout << "   Total de bugs: "; cin >> bugs;
+
     }
 };
 
@@ -128,15 +177,37 @@ void mostrarSalarios(Empleados *empleados[], int n){
     }
 }
 
+void mostrarEspecificaciones(Empleados *empleados[], int n){
+    for(int i = 0; i < n; i++){
+        empleados[i]->mostrarDatos();
+    }
+}
+
+
 int main()
 {
-    Empleados *empleados[4];
-    empleados[0] = new Gerente("Juan", 1000, 2020, "Sistemas", 500);
-    empleados[1] = new Desarrollador("Pedro", 800, 2021, "Java", 10);
-    empleados[2] = new Diseñador("Maria", 700, 2022, "Web", 1);
-    empleados[3] = new Tester("Luis", 600, 2023, "Unitess", 20);
 
-    mostrarSalarios(empleados, 4);
+    Empleados *empleados[6];
+    empleados[0] = new Gerente();
+    empleados[0]->ingresarDatos();
+
+    empleados[1] = new Desarrollador();
+    empleados[1]->ingresarDatos();
+    empleados[2] = new Desarrollador();
+    empleados[2]->ingresarDatos();
+
+    empleados[3] = new Diseñador();
+    empleados[3]->ingresarDatos();
+    empleados[4] = new Diseñador();
+    empleados[4]->ingresarDatos();
+
+
+    empleados[5] = new Tester();
+    empleados[5]->ingresarDatos();
+
+    mostrarEspecificaciones(empleados,6);
+    mostrarSalarios(empleados, 6);
+
 
     return 0;
 

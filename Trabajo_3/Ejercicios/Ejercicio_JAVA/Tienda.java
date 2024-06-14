@@ -204,7 +204,7 @@ class Tiendas {
         this.pagos = pagos;
     }
 
-    // Métodos para agregar clientes, productos, ventas y pagos
+    // Métodos para agregar_empleado clientes, productos, ventas y pagos
 
     public void agregarCliente(Cliente cliente) {
         if (!clientes.contains(cliente)) {

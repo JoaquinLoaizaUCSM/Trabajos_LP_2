@@ -119,7 +119,7 @@ public class Ejercicio_3 {
         }
 
 
-    System.out.println("Ingrese el número de empleados que desea agregar: ");
+    System.out.println("Ingrese el número de empleados que desea agregar_empleado: ");
     Scanner sc = new Scanner(System.in);
     int NumEmpleados = sc.nextInt();
 

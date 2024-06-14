@@ -185,7 +185,7 @@ public class Universidad {
     private ArrayList<Profesor> profesores;
     private ArrayList<Asignatura> asignaturas;
 
-    // Métodos para agregar estudiantes, profesores y asignaturas
+    // Métodos para agregar_empleado estudiantes, profesores y asignaturas
     public void agregarEstudiante(Estudiante estudiante) {
         if (!estudiantes.contains(estudiante)) {
             estudiantes.add(estudiante);

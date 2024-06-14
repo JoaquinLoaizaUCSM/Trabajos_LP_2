@@ -62,7 +62,7 @@ class Grupo {
             alumnos.add(nuevoAlumno);
             System.out.println("Alumno " + nombre + " agregado al grupo.");
         } else {
-            System.out.println("No se pudo agregar al alumno " + nombre + ". El grupo está lleno.");
+            System.out.println("No se pudo agregar_empleado al alumno " + nombre + ". El grupo está lleno.");
         }
     }
 

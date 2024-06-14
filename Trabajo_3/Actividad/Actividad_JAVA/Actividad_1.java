@@ -33,7 +33,7 @@ class Padre {
             hijos[numHijos] = hijo;
             numHijos++;
         } else {
-            System.out.println("No se puede agregar más hijos.");
+            System.out.println("No se puede agregar_empleado más hijos.");
         }
     }
 

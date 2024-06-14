@@ -75,7 +75,7 @@ class Gerente extends Trabajador {
             trabajadores[trabajador.getNumCompaneros()] = trabajador;
             trabajador.setNumCompaneros(trabajador.getNumCompaneros() - 1);
         } else {
-            System.out.println("No se puede agregar más trabajadores.");
+            System.out.println("No se puede agregar_empleado más trabajadores.");
         }
     }
 }

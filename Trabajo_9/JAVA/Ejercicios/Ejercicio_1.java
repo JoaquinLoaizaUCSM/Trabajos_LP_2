@@ -161,7 +161,7 @@ public class Ejercicio_1 {
         Scanner sc = new Scanner(System.in);
         int NumFiguras = 0;
 
-        System.out.println("Ingrese el número de figuras que desea agregar: ");
+        System.out.println("Ingrese el número de figuras que desea agregar_empleado: ");
         NumFiguras = sc.nextInt();
         Figura[] figuras = new Figura[NumFiguras];
 

@@ -1,5 +1,5 @@
 package Trabajo_9.Ejercicios;
-/*Sistema de Nómina de Empleados: Desarrolle un sistema de nómina que calcule los salarios de
+/*Sistema de Nómina de Empleado: Desarrolle un sistema de nómina que calcule los salarios de
 diferentes tipos de empleados (asalariados, por hora, comisionistas). Utilice el polimorfismo para
 calcular los salarios de manera flexible y extensible, permitiendo agregar nuevos tipos de
 empleados en el futuro.*/

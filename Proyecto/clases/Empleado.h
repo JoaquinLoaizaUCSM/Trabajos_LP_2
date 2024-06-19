@@ -9,11 +9,11 @@ class Empleado{
 protected:
     string nombre;
     double salario;
-    string fechaContratacion;
+    int fechaContratacion;
 
 public:
     Empleado(string nombre, double salario, int fechaContratacion){
-        this -> nombre = nombre;
+        this -> nombre = std::move(nombre);
         this -> salario = salario;
         this -> fechaContratacion = fechaContratacion;
     }
@@ -21,8 +21,6 @@ public:
     virtual double calcularSalario() = 0;
     virtual void mostrarDatos() = 0;
     virtual void ingresarDatos() = 0;
-    //virtual Empleado* crearDesdeArchivo(istream& entrada) const = 0;
-    //virtual void guardarEnArchivo(ofstream& archivo) const = 0;
 
     const string &getNombre() const {
         return nombre;
@@ -40,11 +38,11 @@ public:
         Empleado::salario = salario;
     }
 
-    const string &getFechaContratacion() const {
+    const int &getFechaContratacion() const {
         return fechaContratacion;
     }
 
-    void setFechaContratacion(const string &fechaContratacion) {
+    void setFechaContratacion(const int &fechaContratacion) {
         Empleado::fechaContratacion = fechaContratacion;
     }
 };
@@ -55,9 +53,9 @@ private:
     double bono;
 
 public:
-    Gerente(string nombre = "", double salario = 0, int fechaContratacion = 0, string departamento = "", double bono = 0) :
-            Empleado(nombre, salario, fechaContratacion){
-        this->departamento = departamento;
+    explicit Gerente(string nombre = "", double salario = 0, int fechaContratacion = 0, string departamento = "", double bono = 0) :
+            Empleado(std::move(nombre), salario, fechaContratacion){
+        this->departamento = std::move(departamento);
         this->bono = bono;
     }
 
@@ -81,19 +79,7 @@ public:
         cout << "   Departamento: "; cin >> departamento;
         cout << "   Bono: "; cin >> bono;
     }
-/*
-    void guardarEnArchivo(ofstream& archivo) const override {
-        archivo << "Gerente " << nombre << " " << salario << " " << fechaContratacion << endl;
-    }
 
-    static Empleado* crearDesdeArchivo(istream& entrada) {
-        string nombre;
-        double salario;
-        int fechaContratacion;
-        entrada >> nombre >> salario >> fechaContratacion;
-        return new Gerente(nombre, salario, fechaContratacion);
-    }
-*/
     const string &getDepartamento() const {
         return departamento;
     }
@@ -120,9 +106,9 @@ private:
     int horasExtra;
 
 public:
-    Desarrollador(string nombre = "", double salario = 0, int fechaContratacion = 0, string lenguaje = "", int horasExtra = 0) :
-            Empleado(nombre, salario, fechaContratacion){
-        this->lenguaje = lenguaje;
+    explicit Desarrollador(string nombre = "", double salario = 0, int fechaContratacion = 0, string lenguaje = "", int horasExtra = 0) :
+            Empleado(std::move(nombre), salario, fechaContratacion){
+        this->lenguaje = std::move(lenguaje);
         this->horasExtra = horasExtra;
     }
 
@@ -150,21 +136,7 @@ public:
         cout << "   horasExtra:  ";
         cin >> horasExtra;
     }
-/*
-    void guardarEnArchivo(ofstream& archivo) const override {
-        archivo << "Desarrollador " << nombre << " " << salario << " " << fechaContratacion << " " << lenguaje << " " << horasExtra << endl;
-    }
 
-    static Empleado* crearDesdeArchivo(istream& entrada) {
-        string nombre;
-        double salario;
-        int fechaContratacion;
-        string lenguaje;
-        int horasExtra;
-        entrada >> nombre >> salario >> fechaContratacion >> lenguaje >> horasExtra;
-        return new Desarrollador(nombre, salario, fechaContratacion, lenguaje, horasExtra);
-    }
-*/
     const string &getLenguaje() const {
         return lenguaje;
     }
@@ -177,8 +149,8 @@ public:
         return horasExtra;
     }
 
-    void setHorasExtra(int horasExtra) {
-        Desarrollador::horasExtra = horasExtra;
+    void setHorasExtra(int extra) {
+        Desarrollador::horasExtra = extra;
     }
 };
 
@@ -191,7 +163,7 @@ private:
     int proyectos;
 
 public:
-    Disenador(string nombre = "", double salario = 0, int fechaContratacion = 0, string tipo = "", int proyectos = 0)
+    explicit Disenador(string nombre = "", double salario = 0, int fechaContratacion = 0, string tipo = "", int proyectos = 0)
             : Empleado(nombre, salario, fechaContratacion){
         this->tipo = tipo;
         this->proyectos = proyectos;
@@ -220,21 +192,7 @@ public:
         cout << "   Tipo de diseñador: ";
         cin >> tipo;
     }
-/*
-    void guardarEnArchivo(ofstream& archivo) const override {
-        archivo << "Disenador " << nombre << " " << salario << " " << fechaContratacion << " " << tipo << " " << proyectos << endl;
-    }
 
-    static Empleado* crearDesdeArchivo(istream& entrada) {
-        string nombre;
-        double salario;
-        int fechaContratacion;
-        string tipo;
-        int proyectos;
-        entrada >> nombre >> salario >> fechaContratacion >> tipo >> proyectos;
-        return new Disenador(nombre, salario, fechaContratacion, tipo, proyectos);
-    }
-*/
     const string &getTipo() const {
         return tipo;
     }
@@ -255,13 +213,11 @@ public:
 class Tester : public Empleado{
 
 private:
-    string tipo;
     int bugs;
 
 public:
-    Tester(string nombre = "", double salario = 0, int fechaContratacion = 0, string tipo = "", int bugs = 0)
-            : Empleado(nombre, salario, fechaContratacion){
-        this->tipo = tipo;
+    explicit Tester(string nombre = "", double salario = 0, int fechaContratacion = 0, string tipo = "", int bugs = 0)
+            : Empleado(std::move(nombre), salario, fechaContratacion){
         this->bugs = bugs;
     }
 
@@ -273,7 +229,6 @@ public:
         cout << "Nombre: " << nombre << endl;
         cout << "Salario: " << salario << endl;
         cout << "Fecha de contratacion: " << fechaContratacion << endl;
-        cout << "Tipo: " << tipo << endl;
         cout << "Bugs: " << bugs << endl;
     }
 
@@ -282,17 +237,8 @@ public:
         cout << "   Nombre: "; cin >> nombre;
         cout << "   Salario: "; cin >> salario;
         cout << "   Fecha de contratacion: "; cin >> fechaContratacion;
-        cout << "   Tipo : "; cin >> tipo;
         cout << "   Total de bugs: "; cin >> bugs;
 
-    }
-
-    const string &getTipo() const {
-        return tipo;
-    }
-
-    void setTipo(const string &tipo) {
-        Tester::tipo = tipo;
     }
 
     int getBugs() const {

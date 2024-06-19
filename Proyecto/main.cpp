@@ -370,7 +370,7 @@ int main()
     P2 = new Desarrollador( "Yhosfer",
                             1050,
                             "28/10/2023",
-                            "Python",10);
+                            "PY",10);
 
     Empleados *P3;
     P3 = new Diseñador(     "Luis",

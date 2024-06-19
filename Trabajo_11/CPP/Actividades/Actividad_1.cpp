@@ -1,109 +1,62 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
+template <typename T>
+T calculo_distancia(T d1, T d2, T d3, T d4){
+    T dt = ((d2-d1) + (d3-d2) + (d4-d3));
+    cout << "La distancia total a recorrer es de " << dt << " km."<< endl;
+    return dt;
+}
 
-class Producto {
-protected:
-    int codigo;
-    string nombre;
-    int precio;
-    int stock;
+template <typename T>
+T tiempo_entrega(T dt, T vel){
+    cout << "El tiempo de entrega estimado es de " << dt/vel << " horas."<< endl;
+    return dt/vel;
+}
 
-public:
-    Producto(int code, string name, int price, int cant) {
-        this->codigo = code;
-        this->nombre = name;
-        this->precio = price;
-        this->stock = cant;
-    }
+template <typename T>
+T realizar_informe(){
+    T nI, d1, d2, d3, d4, dt, tf, vel;
 
-    int get_Stock(){
-        return stock;
-    }
+    cout << "Indique el numero de informe : " << endl;
+    cin >> nI;
 
-    string get_Nombre(){
-        return nombre;
-    }
+    cout << "Ingrese la distancia n1 : " << endl;
+    cin >> d1;
 
-    void actualizar_info(int dato){
-        int code, price, cant;
-        string name;
+    cout << "Ingrese la distancia n2 : " << endl;
+    cin >> d2;
 
-        switch (dato) {
-            case 0:
-                cin >> code;
-                this -> codigo = code;
-                break;
-            case 1:
-                cin >> name;
-                this -> nombre = name;
-                break;
-            case 2:
-                cin >> price;
-                this -> precio = price;
-                break;
-            case 3:
-                cin >> cant;
-                this -> stock = cant;
-        }
-    }
+    cout << "Ingrese la distancia n3 : " << endl;
+    cin >> d3;
 
-    void venta_producto(int cantidad){
-        cout << "Se vendieron " << cantidad << " " + nombre << "." <<endl;
-        this -> stock -= cantidad;
-    }
+    cout << "Ingrese la distancia n4 : " << endl;
+    cin >> d4;
 
-    friend ostream& operator << (ostream& os, Producto& p){
-        os << "\n";
-        os << "Info producto n " << p.codigo << endl;
-        os << "Nombre producto     -> " << p.nombre <<  endl;
-        os << "Precio producto     -> " << p.precio << endl;
-        os << "Cantidad disponible -> " << p.stock << endl;
-        return os;
-    }
+    dt = calculo_distancia(d1 ,d2 ,d3 ,d4);
 
-};
+    cout << "Ingrese la velocidad a la que se ira : " << endl;
+    cin >> vel;
 
-class Gestor {
-protected:
-    vector <Producto> productos = {};
-    int n_caja;
+    tf = tiempo_entrega(dt,vel);
 
-public:
-    Gestor(int n){
-        this -> n_caja = n;
-    }
+    cout << "Informe de ruta: " << endl;
+    cout << "Distancia recorrida        -> " << dt << endl;
+    cout << "Velocidad del vehiculo     -> " << vel<< endl;
+    cout << "Tiempo estimado de entrega -> " << tf << endl;
 
-    void agregar_producto(Producto p){
-        cout << "El producto -> " << p.get_Nombre() << " se agrego correctamente." << endl;
-        productos.push_back(p);
-    }
+    return nI;
+}
 
-    void inventario(){
-        cout << "Inventario completo: " << endl;
-        for (Producto p : productos){
-            cout << p;
-        }
-    }
+int main(){
+    cout << "Ejecucion int :" << endl;
+    int n1 = realizar_informe<int>();
 
+    cout << "\nEjecucion double :" << endl;
+    double n2 = realizar_informe<double>();
 
-};
+    cout << "\nEjecucion long :" << endl;
+    long n3 = realizar_informe<long>();
 
-
-
-int main() {
-    Producto brocoli(2023,"Brocoli",199,10);
-    Producto mani(2845,"Mani",2000,25);
-    Producto crema(27777,"Crema",285,4);
-    brocoli.venta_producto(5);
-
-    Gestor gestorcito(2);
-    gestorcito.agregar_producto(brocoli);
-    gestorcito.agregar_producto(mani);
-    gestorcito.agregar_producto(crema);
-
-
-    gestorcito.inventario();
     return 0;
 }

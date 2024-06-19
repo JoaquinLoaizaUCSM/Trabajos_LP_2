@@ -32,15 +32,23 @@ class Disenador {
 
 class Departamento<T> {
     - nombre: string
-    - empleados: vector<T>
+    - empleados: vector<unique_ptr<T>>
+    - manejadorArchivos: Archivo
     + Departamento(nombre: string)
-    + agregarEmpleado(empleado: T): void
+    + agregarEmpleado(empleado: unique_ptr<T>): void
     + eliminarEmpleado(nombre: string): void
-    + buscarEmpleado(nombre: string):
+    + buscarEmpleado(nombre: string): T*
     + listarEmpleados(): void
     + ordenarEmpleadosPorNombre(): void
     + guardarEnArchivo(nombreArchivo: string): void
     + cargarDesdeArchivo(nombreArchivo: string): void
+}
+
+class Archivo {
+    - nombreArchivo: string
+    + Archivo(nombre: string)
+    + abrir(): void
+    + cerrar(): void
 }
 
 note top of Empleado
@@ -68,9 +76,15 @@ note top of Departamento
      para gestionarlos y persistirlos en archivos.
 end note
 
+note top of Archivo
+    Clase que facilita la lectura y escritura de datos relacionados
+     con los empleados en archivos.
+end note
+
 Empleado <|-- Gerente
 Empleado <|-- Desarrollador
 Empleado <|-- Disenador
-Departamento *-- Empleado : composicion
+Departamento o-- Empleado : Agregacion
+Departamento "1" *-- "0..*" Archivo : Composicion
 
 @enduml

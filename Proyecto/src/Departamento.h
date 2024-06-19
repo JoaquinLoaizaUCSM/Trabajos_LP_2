@@ -3,27 +3,41 @@
 #define TRABAJOS_LP_2_DEPARTAMENTO_H
 
 #include <vector>
-#include <algorithm>
 #include <stdexcept>
 #include <functional>
+
 #include "GestorArchivo.h"
-#include "Empleado.h"
+#include "Empleados/Empleado.h"
 
 using namespace std;
 
 template <typename T>
 class Departamento {
+private:
     vector<T*> empleados;
+    GestorArchivos manejadorArchivos;
 
 public:
     ~Departamento() {
-        for (auto empleado : empleados) {
+        for (auto   empleado : empleados) {
             delete empleado;
         }
     }
 
+    explicit Departamento(vector<T*> empleados, GestorArchivos manejadorArchivos) : empleados(empleados) {
+        this->manejadorArchivos = manejadorArchivos;
+    }
+
     void agregarEmpleado(T* empleado) {
         empleados.push_back(empleado);
+        cout << "Empleado agregado correctamente" << endl;
+    }
+
+    void agregarEmpleado(vector<T*> empleados) {
+        for (auto empleado: empleados)
+            this->empleados.push_back(empleado);
+
+        cout << "Empleados agregados correctamente" << endl;
     }
 
     void eliminarEmpleado(const string& nombre) {
@@ -31,6 +45,15 @@ public:
                                   [&nombre](T* empleado) {
                                       return empleado->getNombre() == nombre;
                                   }), empleados.end());
+        cout << "Empleado eliminado correctamente" << endl;
+    }
+
+    void EditarEmpleado(const string& nombre, const string& nuevoNombre, double nuevoSalario, int nuevaFechaContratacion) {
+        auto empleado = buscarEmpleado(nombre);
+        empleado->setNombre(nuevoNombre);
+        empleado->setSalario(nuevoSalario);
+        empleado->setFechaContratacion(nuevaFechaContratacion);
+        cout << "Empleado editado correctamente" << endl;
     }
 
     T* buscarEmpleado(const string& nombre) const {
@@ -47,6 +70,7 @@ public:
 
     void ordenarEmpleados(function<bool(T*, T*)> comparador) {
         sort(empleados.begin(), empleados.end(), comparador);
+        cout << "Empleados ordenados correctamente" << endl;
     }
 
 
@@ -56,12 +80,12 @@ public:
         }
     }
 
-    void guardar(const string& archivo) const {
-        GestorArchivos::guardar(archivo, empleados);
+    void guardar(const string& archivo) {
+        manejadorArchivos.guardar(archivo, empleados);
     }
 
     void cargar(const string& archivo) {
-        GestorArchivos::cargar(archivo, empleados);
+        manejadorArchivos.cargar(archivo, empleados);
     }
 };
 

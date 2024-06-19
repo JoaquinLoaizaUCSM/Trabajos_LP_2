@@ -3,12 +3,12 @@ package Trabajo_4.actividad.models;
 public class Archivo {
 
         private String nombre;
-        private String tipo;
+        private String programa;
         private String contenido;
 
-        public Archivo(String nombre, String tipo, String contenido) {
+        public Archivo(String nombre, String programa, String contenido) {
             this.nombre = nombre;
-            this.tipo = tipo;
+            this.programa = programa;
             this.contenido = contenido;
         }
 
@@ -17,7 +17,7 @@ public class Archivo {
         }
 
         public String getTipo() {
-            return tipo;
+            return programa;
         }
 
         public String getContenido() {
@@ -29,8 +29,8 @@ public class Archivo {
             this.nombre = nombre;
         }
 
-        public void setTipo(String tipo) {
-            this.tipo = tipo;
+        public void setTipo(String programa) {
+            this.programa = programa;
         }
 
         public void setContenido(String contenido) {

@@ -114,7 +114,9 @@ int main(){
     //Creacion Rutas
     Ruta<int> ruta1("001", "Grossman", 120, 3);
     ruta1.vehiculo_asignado(1234);
-    ruta1.ingreso_rutas();
+    ruta1.ingreso_rutas()
+            
+            );
     ruta1.calculo_distancia();
     ruta1.tiempo_entrega();
 

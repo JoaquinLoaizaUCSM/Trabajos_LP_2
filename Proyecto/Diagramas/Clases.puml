@@ -1,76 +1,95 @@
 @startuml
-
 abstract class Empleado {
-    - nombre: string
-    - salarioBase: double
-    - fechaContratacion: string
-    {abstract} + calcularSalario(): double
-    {abstract} + mostrarInfo(): void
-    + getNombre(): string
-    + getFechaContratacion(): string
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  +{abstract} double calcularSalario() ;
+  +{abstract} void mostrarDatos() ;
+  +{abstract} void ingresarDatos() ;
+  +{abstract} string serializar()  ;
+  +{abstract} void deserializar(string data) ;
 }
 
 class Gerente {
-    - bono: double
-    + Gerentestring, double, string, double)
-    + calcularSalario(): double
-    + mostrarInfo(): void
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -double bono
+  -string departamento
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
 }
 
 class Desarrollador {
-    + Desarrollador(string, double, string)
-    + calcularSalario(): double
-    + mostrarInfo(): void
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -int horasExtras
+  -string lenguaje
+  -string programa;
+  -int proyectos;
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
 }
 
 class Disenador {
-    - comision: double
-    + Disenador(string, double, string, double)
-    + calcularSalario(): double
-    + mostrarInfo(): void
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -string programa;
+  -int proyectos;
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
 }
 
-class Departamento<T> {
-    - nombre: string
-    - empleados: vector<T>
-    + Departamento(nombre: string)
-    + agregarEmpleado(empleado: T): void
-    + eliminarEmpleado(nombre: string): void
-    + buscarEmpleado(nombre: string):
-    + listarEmpleados(): void
-    + ordenarEmpleadosPorNombre(): void
-    + guardarEnArchivo(nombreArchivo: string): void
-    + cargarDesdeArchivo(nombreArchivo: string): void
+class Tester {
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -int bugs;
+  -string system;
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
 }
-
-note top of Empleado
-    Clase abstracta que define los atributos y comportamientos
-    comunes para todos los tipos de empleados.
-end note
-
-note top of Gerente
-    Clase que representa a un gerente
-    con un atributo adicional de bono.
-end note
-
-note top of Desarrollador
-    Clase que representa a un desarrollador con
-    implementación específica de cálculo de salario.
-end note
-
-note top of Disenador
-    Clase que representa a un diseñador,
-    con un atributo adicional de comisión.
-end note
-
-note top of Departamento
-    Clase que maneja un grupo de empleados, proporcionando operaciones
-     para gestionarlos y persistirlos en archivos.
-end note
 
 Empleado <|-- Gerente
 Empleado <|-- Desarrollador
 Empleado <|-- Disenador
-Departamento *-- Empleado : composicion
+Empleado <|-- Tester
 
+class GestorArchivos {
+  +static void guardar(string& archivo, const vector<Empleado*>& empleados)
+  +static void cargar(string& archivo, vector<Empleado*>& empleados)
+}
+
+class Departamento {
+  -vector<Empleado*> empleados
+  -GestorArchivos manejadorArchivos
+  +void agregarEmpleado(Empleado* empleado)
+  +void eliminarEmpleado(const string& nombre)
+  +void editarEmpleado(const string& nombre, const string& nuevoNombre, double nuevoSalario, int nuevaFechaContratacion)
+  +Empleado* buscarEmpleado(const string& nombre)
+  +void listarEmpleados()
+  +void guardar(const string& archivo)
+  +void cargar(const string& archivo)
+}
+
+Departamento *-- GestorArchivos : composición
+Departamento *-- Empleado : composición
 @enduml

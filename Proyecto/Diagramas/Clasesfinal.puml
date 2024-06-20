@@ -1,0 +1,90 @@
+@startuml
+
+abstract class Empleado {
+    - nombre: string
+    - salarioBase: double
+    - fechaContratacion: string
+    {abstract} + calcularSalario(): double
+    {abstract} + mostrarInfo(): void
+    + getNombre(): string
+    + getFechaContratacion(): string
+}
+
+class Gerente {
+    - bono: double
+    + Gerentestring, double, string, double)
+    + calcularSalario(): double
+    + mostrarInfo(): void
+}
+
+class Desarrollador {
+    + Desarrollador(string, double, string)
+    + calcularSalario(): double
+    + mostrarInfo(): void
+}
+
+class Disenador {
+    - comision: double
+    + Disenador(string, double, string, double)
+    + calcularSalario(): double
+    + mostrarInfo(): void
+}
+
+class Departamento<T> {
+    - nombre: string
+    - empleados: vector<unique_ptr<T>>
+    - manejadorArchivos: Archivo
+    + Departamento(nombre: string)
+    + agregarEmpleado(empleado: unique_ptr<T>): void
+    + eliminarEmpleado(nombre: string): void
+    + buscarEmpleado(nombre: string): T*
+    + listarEmpleados(): void
+    + ordenarEmpleadosPorNombre(): void
+    + guardarEnArchivo(nombreArchivo: string): void
+    + cargarDesdeArchivo(nombreArchivo: string): void
+}
+
+class Archivo {
+    - nombreArchivo: string
+    + Archivo(nombre: string)
+    + abrir(): void
+    + cerrar(): void
+}
+
+note top of Empleado
+    Clase abstracta que define los atributos y comportamientos
+    comunes para todos los tipos de empleados.
+end note
+
+note top of Gerente
+    Clase que representa a un gerente
+    con un atributo adicional de bono.
+end note
+
+note top of Desarrollador
+    Clase que representa a un desarrollador con
+    implementación específica de cálculo de salario.
+end note
+
+note top of Disenador
+    Clase que representa a un diseñador,
+    con un atributo adicional de comisión.
+end note
+
+note top of Departamento
+    Clase que maneja un grupo de empleados, proporcionando operaciones
+     para gestionarlos y persistirlos en archivos.
+end note
+
+note top of Archivo
+    Clase que facilita la lectura y escritura de datos relacionados
+     con los empleados en archivos.
+end note
+
+Empleado <|-- Gerente
+Empleado <|-- Desarrollador
+Empleado <|-- Disenador
+Departamento o-- Empleado : Agregacion
+Departamento "1" *-- "0..*" Archivo : Composicion
+
+@enduml

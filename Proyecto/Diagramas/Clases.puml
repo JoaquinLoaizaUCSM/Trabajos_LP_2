@@ -1,98 +1,95 @@
 @startuml
-skinparam classAttributeIconSize 0
-
-' Clase Empleado (abstracta)
-class Empleado {
-    -string nombre
-    -double salario
-    -int fechaContratacion
-    __
-    +Empleado(string nombre, double salario, int fechaContratacion)
-    +~Empleado()
-    __
-    +string getNombre()
-    +double getSalario()
-    +int getFechaContratacion()
-    +double calcularSalario() <<abstract>>
+abstract class Empleado {
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  +{abstract} double calcularSalario() ;
+  +{abstract} void mostrarDatos() ;
+  +{abstract} void ingresarDatos() ;
+  +{abstract} string serializar()  ;
+  +{abstract} void deserializar(string data) ;
 }
 
-' Clase Gerente
 class Gerente {
-    -double bono
-    __
-    +Gerente(string nombre, double salario, int fechaContratacion, double bono)
-    +double calcularSalario()
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -double bono
+  -string departamento
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
 }
 
-' Clase Desarrollador
 class Desarrollador {
-    +Desarrollador(string nombre, double salario, int fechaContratacion)
-    +double calcularSalario()
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -int horasExtras
+  -string lenguaje
+  -string programa;
+  -int proyectos;
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
 }
 
-' Clase Diseñador
-class Diseñador {
-    +Diseñador(string nombre, double salario, int fechaContratacion)
-    +double calcularSalario()
+class Disenador {
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -string programa;
+  -int proyectos;
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
 }
 
-' Clase GestorArchivos
+class Tester {
+  -string nombre
+  -double salario
+  -int fechaContratacion
+  -int bugs;
+  -string system;
+
+  +double calcularSalario() ;
+  +void mostrarDatos() ;
+  +void ingresarDatos() ;
+  +string serializar()  ;
+  +void deserializar(string data) ;
+}
+
+Empleado <|-- Gerente
+Empleado <|-- Desarrollador
+Empleado <|-- Disenador
+Empleado <|-- Tester
+
 class GestorArchivos {
-    +static void guardar<T>(string archivo, vector<T*> empleados)
-    +static void cargar<T>(string archivo, vector<T*> empleados)
+  +static void guardar(string& archivo, const vector<Empleado*>& empleados)
+  +static void cargar(string& archivo, vector<Empleado*>& empleados)
 }
 
-' Clase Departamento (plantilla)
-class Departamento<T> {
-    -vector<T*> empleados
-    __
-    +~Departamento()
-    __
-    +void agregarEmpleado(T* empleado)
-    +void eliminarEmpleado(string nombre)
-    +T* buscarEmpleado(string nombre)
-    +void listarEmpleados()
-    +void guardar(string archivo)
-    +void cargar(string archivo)
+class Departamento {
+  -vector<Empleado*> empleados
+  -GestorArchivos manejadorArchivos
+  +void agregarEmpleado(Empleado* empleado)
+  +void eliminarEmpleado(const string& nombre)
+  +void editarEmpleado(const string& nombre, const string& nuevoNombre, double nuevoSalario, int nuevaFechaContratacion)
+  +Empleado* buscarEmpleado(const string& nombre)
+  +void listarEmpleados()
+  +void guardar(const string& archivo)
+  +void cargar(const string& archivo)
 }
 
-' Relaciones entre clases
-Empleado <|-- Gerente : Herencia
-Empleado <|-- Desarrollador : Herencia
-Empleado <|-- Diseñador : Herencia
-
-Departamento o- Empleado : Composición
-GestorArchivos ..> Departamento : Dependencia
-
-' Notas para mayor claridad
-note top of Empleado
-Clase abstracta que define la interfaz para los empleados.
-Contiene métodos comunes y un método abstracto para calcular el salario.
-end note
-
-note top of Gerente
-Clase concreta que representa a un gerente.
-Hereda de Empleado y añade un atributo para el bono.
-end note
-
-note top of Desarrollador
-Clase concreta que representa a un desarrollador.
-Hereda de Empleado.
-end note
-
-note top of Diseñador
-Clase concreta que representa a un diseñador.
-Hereda de Empleado.
-end note
-
-note top of GestorArchivos
-Clase que maneja la persistencia de los empleados.
-Tiene métodos estáticos para guardar y cargar empleados desde/hacia un archivo.
-end note
-
-note top of Departamento
-Clase plantilla que maneja una colección de empleados.
-Permite agregar, eliminar, buscar, listar, guardar y cargar empleados.
-end note
-
+Departamento *-- GestorArchivos : composición
+Departamento *-- Empleado : composición
 @enduml

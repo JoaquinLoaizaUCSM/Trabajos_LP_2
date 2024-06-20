@@ -1,32 +1,37 @@
 #include <iostream>
-#include <fstream>
 using namespace std;
+#include <vector>
 
-int main(){
-    try {
-        string name;
-        cout << "Ingrese el nombre del archivo a ejecutar: " << endl;
-        cin >> name;
-        ifstream archivito("Trabajo_11/CPP/Ejercicios/" + name + ".txt", ios::in);
-
-        if (!archivito) {
-            throw string("No se abrio correctamente.");
+template <typename T>
+void ordenamiento_vector(vector<T> &vct) {
+    int tamaño = vct.size();
+    for (int i = 0; i < tamaño - 1; i++) {
+        for (int j = 0; j < tamaño - i - 1; j++) {
+            if (vct[j] > vct[j + 1]) {
+                T temp = vct[j];
+                vct[j] = vct[j + 1];
+                vct[j + 1] = temp;
+            }
         }
+    }
+}
 
-        string linea;
-        int n_linea = 0;
-        while (getline(archivito, linea)){
-            n_linea++;
-            cout << "Linea " << n_linea << " : " << linea << endl;
-        }
+int main() {
+    vector<int> numeritos = {1, 2, 3, 0, 9, 7, 6};
+    ordenamiento_vector(numeritos);
 
-        archivito.close();
-
-
-    } catch (const string& e){
-        cout << "Excepcion capturada: " << e << endl;
+    for (int i = 0; i < numeritos.size(); i++){
+        cout << numeritos[i];
     }
 
+    cout << "\n" << endl;
+
+    vector<float> numeritos_flotantes = {6.5, 45.7, 85.5, 2.2, 1.1, 2.5, 4.9};
+    ordenamiento_vector(numeritos_flotantes);
+
+    for (int i = 0; i < numeritos_flotantes.size(); i++){
+        cout << numeritos_flotantes[i];
+    }
 
 
     return 0;

@@ -72,13 +72,13 @@ class Comisionista implements Empleado {
 
 public class Ejercicio_3 {
     static void crearEmpleado(Empleado[] empleados, int i, Scanner sc) {
-        System.out.println("Ingrese el tipo de empleado: ");
+        System.out.println("Ingrese el programa de empleado: ");
         System.out.println("1. Asalariado");
         System.out.println("2. Por Hora");
         System.out.println("3. Comisionista");
-        int tipo = sc.nextInt();
+        int programa = sc.nextInt();
 
-        switch (tipo) {
+        switch (programa) {
             case 1:
                 System.out.println("Ingrese el salario del empleado: ");
                 double salario = sc.nextDouble();

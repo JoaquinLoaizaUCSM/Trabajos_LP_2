@@ -7,7 +7,7 @@
 using namespace std;
 
 //SRP:Clases con única razon, sin razon de cambio
-//OCP:Uso de herencia y cambios no afectando a otras clases
+//OCP:Uso de herencia y cambios no afectando a otras src
 
 class Interfaz_Gestor{
 public:

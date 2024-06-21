@@ -140,7 +140,6 @@ void Menu::crearEmpleado(Departamento<Empleado>* departamento) {
     string nombre, puesto;
     cout << "Ingrese el nombre del empleado:";
     getline(cin, nombre);
-    cin.ignore(); // Ignorar nueva línea
     cout << "Ingrese el salario del empleado:";
     double salario;
     cin >> salario;
@@ -169,10 +168,11 @@ void Menu::crearEmpleado(Departamento<Empleado>* departamento) {
         Empleado* empleado = new Disenador(nombre, salario, fechaContratacion, herramienta);
     } else if (puesto == "Gerente") {
         int numEmpleados;
+        double bono;
         cout << "Ingrese el número de empleados a cargo:";
         cin >> numEmpleados;
         cin.ignore(); // Ignorar nueva línea
-        Empleado* empleado = new Gerente(nombre, numEmpleados);
+        Empleado* empleado = new Gerente(nombre, salario, fechaContratacion, numEmpleados,bono);
     } else if (puesto == "Tester") {
         string especialidad;
         cout << "Ingrese la sistema operativo:";

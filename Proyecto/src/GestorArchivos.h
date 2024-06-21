@@ -44,6 +44,7 @@ public:
         } catch (const runtime_error& e) {
             cerr << e.what() << endl;
         }
+        cout << "Guardado con exito" << endl;
     }
 
     static void guardar(const string& archivo, const map<int, Empleado*>& empleados) {
@@ -60,7 +61,7 @@ public:
         }
     }
 
-    static void cargar(const string& archivo, vector<Empleado*>& empleados) {
+/*    static void cargar(const string& archivo, vector<Empleado*>& empleados) {
         try {
             ifstream ifs(archivo);
             if (!ifs) {
@@ -79,9 +80,10 @@ public:
         } catch (const runtime_error& e) {
             cerr << e.what() << endl;
         }
-    }
+    }*/
 
     static void cargar(const string& archivo, map<int, Empleado*>& empleados) {
+
         try {
             ifstream ifs(archivo);
             if (!ifs) {
@@ -98,6 +100,8 @@ public:
                     empleados[id] = empleado;
                 }
             }
+
+            cout << "Cargado con exito" << endl;
         } catch (const runtime_error& e) {
             cerr << e.what() << endl;
         }

@@ -12,7 +12,7 @@ GestorArchivos gestorArchivos;
 
 Departamento<Empleado> crearDepartamentoDesarrollo() {
     Departamento<Empleado> departamento("Desarrollo", gestorArchivos);
-    departamento.agregarEmpleado(new Gerente("Alice", 5000, 2, "desarrollo", 1000));
+    departamento.agregarEmpleado(new Gerente("Alice", 5000, 2, 1, 1000));
     departamento.agregarEmpleado(new Desarrollador("Bob", 3000, 3, "C++", 2));
     departamento.agregarEmpleado(new Disenador("Charlie", 3500, 2, "Photoshop", 1));
     departamento.agregarEmpleado(new Tester("David", 4000, 2, "Windows", 2));
@@ -21,7 +21,7 @@ Departamento<Empleado> crearDepartamentoDesarrollo() {
 
 Departamento<Empleado> crearDepartamentoServicios() {
     Departamento<Empleado> departamento("Servicios", gestorArchivos);
-    departamento.agregarEmpleado(new Gerente("Joaquin", 5000, 2, "servicios", 3000));
+    departamento.agregarEmpleado(new Gerente("Joaquin", 5000, 2, 4, 3000));
     departamento.agregarEmpleado(new Desarrollador("Grossman", 3000, 3, "Java", 20));
     departamento.agregarEmpleado(new Disenador("Salvador", 3500, 2, "Illustrator", 2));
     departamento.agregarEmpleado(new Tester("Yhosfer", 4000, 2, "Linux", 3));

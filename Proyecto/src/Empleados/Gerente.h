@@ -5,26 +5,26 @@
 
 class Gerente : public Empleado{
 private:
-    string departamento;
+    int  numEmpleados;
     double bono;
 
 public:
-    explicit Gerente(string nombre = "", double salario = 0, int fechaContratacion = 0, string departamento = "",
+    explicit Gerente(string nombre = "", double salario = 0, int fechaContratacion = 0, int numEmpleados =0,
                      double bono = 0.0) :
             Empleado(std::move(nombre), salario, fechaContratacion){
-        this->departamento = std::move(departamento);
+        this->numEmpleados = numEmpleados;
         this->bono = bono;
     }
 
     string serializar() const override {
         ostringstream oss;
-        oss << nombre << " " << salario << " " << departamento << " " <<fechaContratacion << " " << bono;
+        oss << nombre << " " << salario << " " << numEmpleados << " " <<fechaContratacion << " " << bono;
         return oss.str();
     }
 
     void deserializar(const string& data) override {
         istringstream iss(data);
-        iss >> nombre >> salario >> departamento >> fechaContratacion>> bono;
+        iss >> nombre >> salario >> numEmpleados >> fechaContratacion>> bono;
     }
 
     double calcularSalario() override{
@@ -35,7 +35,7 @@ public:
         cout << "Nombre: " << nombre << endl;
         cout << "Salario: " << salario << endl;
         cout << "Fecha de contratacion: " << fechaContratacion << endl;
-        cout << "Departamento: " << departamento << endl;
+        cout << "Numero de empleados: " << numEmpleados << endl;
         cout << "Bono: " << bono << endl;
     }
 
@@ -44,16 +44,16 @@ public:
         cout << "   Nombre: "; cin >> nombre;
         cout << "   Salario: "; cin >> salario;
         cout << "   Fecha de contratacion: "; cin >> fechaContratacion;
-        cout << "   Departamento: "; cin >> departamento;
+        cout << "   Departamento: "; cin >> numEmpleados;
         cout << "   Bono: "; cin >> bono;
     }
 
-    const string &getDepartamento() const {
-        return departamento;
+    int getNumEmpleados() const {
+        return numEmpleados;
     }
 
-    void setDepartamento(const string &departamento) {
-        Gerente::departamento = departamento;
+    void setNumEmpleados(int numEmpleados) {
+        Gerente::numEmpleados = numEmpleados;
     }
 
     double getBono() const {

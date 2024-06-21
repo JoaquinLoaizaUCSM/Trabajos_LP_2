@@ -54,11 +54,11 @@ public:
     }
 
     void guardarEmpleados() {
-        gestorArchivos.guardar("empleados" ,empleados);
+        gestorArchivos.guardar("empleados.txt" ,empleados);
     }
 
     void cargarEmpleados() {
-        gestorArchivos.cargar("empleados", empleados);
+        GestorArchivos::cargar("empleados.txt", empleados);
     }
 private:
     string nombre;

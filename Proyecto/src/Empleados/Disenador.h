@@ -1,6 +1,8 @@
 #ifndef TRABAJOS_LP_2_DISENADOR_H
 #define TRABAJOS_LP_2_DISENADOR_H
 
+#include <utility>
+
 #include "Empleado.h"
 
 class Disenador : public Empleado{
@@ -11,8 +13,8 @@ private:
 
 public:
     explicit Disenador(string nombre = "", double salario = 0, int fechaContratacion = 0, string programa = "", int proyectos = 0)
-            : Empleado(nombre, salario, fechaContratacion){
-        this->programa = programa;
+            : Empleado(std::move(nombre), salario, fechaContratacion){
+        this->programa = std::move(programa);
         this->proyectos = proyectos;
     }
 

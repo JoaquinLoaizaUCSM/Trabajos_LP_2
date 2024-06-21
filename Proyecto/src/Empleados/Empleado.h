@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <sstream>  // Es necesario para usar ostringstream
+#include <utility>
 
 using namespace std;
 
@@ -30,10 +31,10 @@ public:
     }
 
     void setNombre(string nombre) {
-        Empleado::nombre = nombre;
+        Empleado::nombre = std::move(nombre);
     }
 
-    double getSalario() {
+    double getSalario() const {
         return salario;
     }
 
@@ -41,7 +42,7 @@ public:
         Empleado::salario = salario;
     }
 
-     int getFechaContratacion() {
+     int getFechaContratacion() const {
         return fechaContratacion;
     }
 

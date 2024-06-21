@@ -16,7 +16,7 @@ public:
         this->bugs = bugs;
     }
 
-    string serializar() const override {
+    [[nodiscard]] string serializar() const override {
         ostringstream oss;
         oss << nombre << " " << salario << " " << fechaContratacion << " " << system << " "<< bugs;
         return oss.str();
@@ -47,7 +47,7 @@ public:
 
     }
 
-    int getBugs() const {
+    [[nodiscard]] int getBugs() const {
         return bugs;
     }
 

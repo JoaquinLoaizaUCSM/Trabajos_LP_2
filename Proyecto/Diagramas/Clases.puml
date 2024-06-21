@@ -1,71 +1,57 @@
 @startuml
 abstract class Empleado {
-  -string nombre
-  -double salario
-  -int fechaContratacion
-  +{abstract} double calcularSalario() ;
-  +{abstract} void mostrarDatos() ;
-  +{abstract} void ingresarDatos() ;
-  +{abstract} string serializar()  ;
-  +{abstract} void deserializar(string data) ;
+  #string nombre
+  #double salario
+  #int fechaContratacion
+  +{abstract} double calcularSalario()
+  +{abstract} void mostrarDatos()
+  +{abstract} void ingresarDatos()
+  +{abstract} string serializar()
+  +{abstract} void deserializar(string data)
 }
 
 class Gerente {
-  -string nombre
-  -double salario
-  -int fechaContratacion
   -double bono
   -string departamento
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 class Desarrollador {
-  -string nombre
-  -double salario
-  -int fechaContratacion
   -int horasExtras
   -string lenguaje
-  -string programa;
-  -int proyectos;
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 class Disenador {
-  -string nombre
-  -double salario
-  -int fechaContratacion
-  -string programa;
-  -int proyectos;
+  -string programa
+  -int proyectos
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 class Tester {
-  -string nombre
-  -double salario
-  -int fechaContratacion
-  -int bugs;
-  -string system;
+  -int bugs
+  -string sistema
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 Empleado <|-- Gerente
@@ -74,22 +60,58 @@ Empleado <|-- Disenador
 Empleado <|-- Tester
 
 class GestorArchivos {
-  +static void guardar(string& archivo, const vector<Empleado*>& empleados)
-  +static void cargar(string& archivo, vector<Empleado*>& empleados)
+  +static void guardar(string archivo, vector<Empleado*> empleados)
+  +static void cargar(string archivo, vector<Empleado*> empleados)
 }
 
 class Departamento {
   -vector<Empleado*> empleados
   -GestorArchivos manejadorArchivos
+
+  +string getNombre()
   +void agregarEmpleado(Empleado* empleado)
   +void eliminarEmpleado(const string& nombre)
-  +void editarEmpleado(const string& nombre, const string& nuevoNombre, double nuevoSalario, int nuevaFechaContratacion)
   +Empleado* buscarEmpleado(const string& nombre)
   +void listarEmpleados()
-  +void guardar(const string& archivo)
-  +void cargar(const string& archivo)
+  +void guardar(string archivo)
+  +void cargar(string archivo)
 }
 
 Departamento *-- GestorArchivos : composición
 Departamento *-- Empleado : composición
+
+class Empresa {
+  -string nombre
+  -set<Departamento<Empleado>*> departamentos
+
+  +Empresa(string , vector<Departamento<Empleado>*> )
+  +Empresa(string , Departamento<Empleado>* )
+  +void agregarDepartamento(Departamento<Empleado>* departamento)
+  +void eliminarDepartamento(string nombre)
+  +void mostrarDepartamentos()
+}
+
+class Reportes {
+  +static void generarReporte(Empresa<Departamento<Empleado>>& empresa)
+  +static void mostrarSalarioTotal(const Empresa<Departamento<Empleado>>& empresa)
+}
+
+class Menu {
+  -Empresa<Departamento<Empleado>> empresa
+
+  +void mostrarMenuPrincipal()
+  +void mostrarMenuDepartamentos()
+  +void crearDepartamento()
+  +static void crearEmpleado(Departamento<Empleado>* departamento)
+  +void listarDepartamentos()
+  +static void listarEmpleados(Departamento<Empleado>* departamento)
+  +static void editarEmpleado(Departamento<Empleado>* departamento)
+  +static void eliminarEmpleado(Departamento<Empleado>* departamento)
+  +static void buscarEmpleado(Departamento<Empleado>* departamento)
+  +void generarReporte()
+}
+
+Empresa *-- Departamento : composición
+Menu --> Empresa : uso
+Reportes --> Empresa : uso
 @enduml

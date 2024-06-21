@@ -1,211 +1,76 @@
-
-= Proyecto Documentación
-Autor: [Tu Nombre]
-:doctype: book
-:toc: macro
-:toclevels: 2
+= Sistema de Gestión de Empresa
 :sectnums:
+:toc:
 
-== Introducción
+== Antecedentes
 
-Este documento describe la estructura y funcionalidad del proyecto, incluyendo explicaciones detalladas de las clases, métodos, y conceptos técnicos.
+Este proyecto tiene como objetivo gestionar la información de empleados, departamentos y reportes dentro de una empresa. Proporciona una interfaz de usuario a través de un menú para interactuar con el sistema.
 
-== Clases
+== Requisitos
 
-=== Departamento
+* Debe permitir gestionar la información de los empleados.
+* Debe permitir la generación de reportes.
+* Debe ser fácil de usar a través de un menú interactivo.
+* Debe almacenar los datos de forma persistente.
 
-[NOTE]
-====
-La clase `Departamento` maneja una colección de empleados y proporciona métodos para gestionar esta colección,
-incluyendo la adición, eliminación, edición y búsqueda de empleados. Utiliza la clase `GestorArchivos` para
-la persistencia de datos.
-====
+== Diagrama de Clases
 
-. Atributos
-** `vector<Empleado*> empleados` - Lista de empleados (composición).
-** `GestorArchivos manejadorArchivos` - Gestor de archivos (agregación).
-
-. Métodos
-** `void agregarEmpleado(Empleado* empleado)` - Agrega un empleado a la lista de empleados.
-** `void eliminarEmpleado(const string& nombre)` - Elimina un empleado de la lista basado en su nombre.
-** `void editarEmpleado(const string& nombre, const string& nuevoNombre, double nuevoSalario, int nuevaFechaContratacion)` - Edita los detalles de un empleado existente.
-** `Empleado* buscarEmpleado(const string& nombre)` - Busca un empleado en la lista basado en su nombre.
-** `void listarEmpleados()` - Lista todos los empleados.
-** `void guardar(const string& archivo)` - Guarda la lista de empleados en un archivo.
-** `void cargar(const string& archivo)` - Carga la lista de empleados desde un archivo.
-
-====
-Explicación detallada de métodos:
-
-`void agregarEmpleado(Empleado* empleado)`: Este método agrega un empleado a la lista `empleados` y muestra un mensaje confirmando la operación.
-
-`void eliminarEmpleado(const string& nombre)`: Utiliza una función lambda y el algoritmo `remove_if` para eliminar un empleado basado en su nombre.
-
-`Empleado* buscarEmpleado(const string& nombre)`: Busca un empleado utilizando `find_if` y una función lambda para comparar los nombres.
-
-`void guardar(const string& archivo)`: Llama al método estático `guardar` de `GestorArchivos` para serializar y almacenar los datos de empleados en un archivo.
-
-====
-
-=== GestorArchivos
-
-[NOTE]
-====
-La clase `GestorArchivos` proporciona métodos estáticos para guardar y cargar empleados desde archivos.
-Utiliza una fábrica de empleados para crear instancias de empleados basadas en tipos.
-====
-
-. Métodos
-** `static void guardar(const string& archivo, const vector<Empleado*>& empleados)` - Guarda empleados en un archivo.
-** `static void cargar(const string& archivo, vector<Empleado*>& empleados)` - Carga empleados desde un archivo.
-
-====
-Explicación detallada de métodos:
-
-`static void guardar(const string& archivo, const vector<Empleado*>& empleados)`: Este método abre un archivo y escribe la información de cada empleado, incluyendo su tipo y datos serializados.
-
-`static void cargar(const string& archivo, vector<Empleado*>& empleados)`: Este método abre un archivo y lee la información para reconstruir las instancias de `Empleado` utilizando la fábrica de empleados y deserialización.
-====
-
-=== Empleado (Abstracto)
-
-[NOTE]
-====
-La clase abstracta `Empleado` sirve como base para diferentes tipos de empleados. Define los atributos comunes y
-métodos necesarios para todos los empleados.
-====
-
-. Atributos
-** `string nombre` - Nombre del empleado.
-** `double salario` - Salario del empleado.
-** `int fechaContratacion` - Fecha de contratación del empleado.
-
-. Métodos
-** `void setNombre(const string& nombre)` - Establece el nombre del empleado.
-** `void setSalario(double salario)` - Establece el salario del empleado.
-** `void setFechaContratacion(int fechaContratacion)` - Establece la fecha de contratación del empleado.
-** `string getNombre() const` - Obtiene el nombre del empleado.
-** `double getSalario() const` - Obtiene el salario del empleado.
-** `int getFechaContratacion() const` - Obtiene la fecha de contratación del empleado.
-
-====
-Explicación detallada de métodos:
-
-`void setNombre(const string& nombre)`: Establece el nombre del empleado.
-
-`void setSalario(double salario)`: Establece el salario del empleado.
-
-`void setFechaContratacion(int fechaContratacion)`: Establece la fecha de contratación del empleado.
-
-`string getNombre() const`: Obtiene el nombre del empleado.
-
-`double getSalario() const`: Obtiene el salario del empleado.
-
-`int getFechaContratacion() const`: Obtiene la fecha de contratación del empleado.
-====
-
-=== Gerente
-
-[NOTE]
-====
-La clase `Gerente` hereda de `Empleado` y representa un tipo específico de empleado con características adicionales.
-====
-
-=== Desarrollador
-
-[NOTE]
-====
-La clase `Desarrollador` hereda de `Empleado` y representa un tipo específico de empleado con características adicionales.
-====
-
-=== Disenador
-
-[NOTE]
-====
-La clase `Disenador` hereda de `Empleado` y representa un tipo específico de empleado con características adicionales.
-====
-
-=== Tester
-
-[NOTE]
-====
-La clase `Tester` hereda de `Empleado` y representa un tipo específico de empleado con características adicionales.
-====
-
-== Diagramas
-
-=== Diagrama de Clases
-
-[plantuml, clases.png,png]
+[plantuml, diagrama-de-clases, svg]
 ----
 @startuml
 abstract class Empleado {
-  -string nombre
-  -double salario
-  -int fechaContratacion
-  +{abstract} double calcularSalario() ;
-  +{abstract} void mostrarDatos() ;
-  +{abstract} void ingresarDatos() ;
-  +{abstract} string serializar()  ;
-  +{abstract} void deserializar(string data) ;
+  #string nombre
+  #double salario
+  #int fechaContratacion
+  +{abstract} double calcularSalario()
+  +{abstract} void mostrarDatos()
+  +{abstract} void ingresarDatos()
+  +{abstract} string serializar()
+  +{abstract} void deserializar(string data)
 }
 
 class Gerente {
-  -string nombre
-  -double salario
-  -int fechaContratacion
   -double bono
   -string departamento
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 class Desarrollador {
-  -string nombre
-  -double salario
-  -int fechaContratacion
   -int horasExtras
   -string lenguaje
-  -string programa;
-  -int proyectos;
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 class Disenador {
-  -string nombre
-  -double salario
-  -int fechaContratacion
-  -string programa;
-  -int proyectos;
+  -string programa
+  -int proyectos
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 class Tester {
-  -string nombre
-  -double salario
-  -int fechaContratacion
-  -int bugs;
-  -string system;
+  -int bugs
+  -string sistema
 
-  +double calcularSalario() ;
-  +void mostrarDatos() ;
-  +void ingresarDatos() ;
-  +string serializar()  ;
-  +void deserializar(string data) ;
+  +double calcularSalario()
+  +void mostrarDatos()
+  +void ingresarDatos()
+  +string serializar()
+  +void deserializar(string data)
 }
 
 Empleado <|-- Gerente
@@ -214,41 +79,328 @@ Empleado <|-- Disenador
 Empleado <|-- Tester
 
 class GestorArchivos {
-  +static void guardar(string& archivo, const vector<Empleado*>& empleados)
-  +static void cargar(string& archivo, vector<Empleado*>& empleados)
+  +static void guardar(string archivo, vector<Empleado*> empleados)
+  +static void cargar(string archivo, vector<Empleado*> empleados)
 }
 
 class Departamento {
   -vector<Empleado*> empleados
   -GestorArchivos manejadorArchivos
+
+  +string getNombre()
   +void agregarEmpleado(Empleado* empleado)
   +void eliminarEmpleado(const string& nombre)
-  +void editarEmpleado(const string& nombre, const string& nuevoNombre, double nuevoSalario, int nuevaFechaContratacion)
   +Empleado* buscarEmpleado(const string& nombre)
   +void listarEmpleados()
-  +void guardar(const string& archivo)
-  +void cargar(const string& archivo)
+  +void guardar(string archivo)
+  +void cargar(string archivo)
 }
 
 Departamento *-- GestorArchivos : composición
 Departamento *-- Empleado : composición
+
+class Empresa {
+  -string nombre
+  -set<Departamento<Empleado>*> departamentos
+
+  +Empresa(string , vector<Departamento<Empleado>*> )
+  +Empresa(string , Departamento<Empleado>* )
+  +void agregarDepartamento(Departamento<Empleado>* departamento)
+  +void eliminarDepartamento(string nombre)
+  +void mostrarDepartamentos()
+}
+
+class Reportes {
+  +static void generarReporte(Empresa<Departamento<Empleado>>& empresa)
+  +static void mostrarSalarioTotal(const Empresa<Departamento<Empleado>>& empresa)
+}
+
+class Menu {
+  -Empresa<Departamento<Empleado>> empresa
+
+  +void mostrarMenuPrincipal()
+  +void mostrarMenuDepartamentos()
+  +void crearDepartamento()
+  +static void crearEmpleado(Departamento<Empleado>* departamento)
+  +void listarDepartamentos()
+  +static void listarEmpleados(Departamento<Empleado>* departamento)
+  +static void editarEmpleado(Departamento<Empleado>* departamento)
+  +static void eliminarEmpleado(Departamento<Empleado>* departamento)
+  +static void buscarEmpleado(Departamento<Empleado>* departamento)
+  +void generarReporte()
+}
+
+Empresa *-- Departamento : composición
+Menu --> Empresa : uso
+Reportes --> Empresa : uso
 @enduml
+
 ----
 
-== Glosario
+== Método
 
-=== auto
+=== Estructura del Proyecto
 
-El especificador `auto` se utiliza en C++ para la deducción automática de tipos de variables a partir de sus inicializadores. Permite al compilador determinar el tipo de una variable en función del valor con el que se inicializa.
+El proyecto está estructurado en varios archivos que representan diferentes componentes del sistema:
 
-=== vector<T*>
+* `main.cpp`: Punto de entrada del programa.
+* `Empresa.h`: Gestión de la información de la empresa.
+* `Reporte.h`: Generación de reportes.
+* `Contenedor.h`: Contenedor de datos de empleados.
+* `menu.h`: Interfaz de usuario mediante menú.
+* `Empleados/`: Contiene varias clases de empleados como `Desarrollador`, `Diseñador`, `Empleado`, `Gerente`, y `Tester`.
 
-`vector<T*>` es una plantilla de clase en la biblioteca estándar de C++ que representa un contenedor dinámico que puede almacenar punteros a objetos de tipo `T`. Permite la gestión automática de la memoria y proporciona operaciones eficientes para agregar, eliminar y acceder a elementos.
+=== Explicación del Código
 
-=== function<bool(T*, T*)>
+==== main.cpp
 
-`function<bool(T*, T*)>` es una plantilla de clase en la biblioteca estándar de C++ que representa un objeto funcional, es decir, una función o un objeto que se puede llamar como una función. En este caso, representa una función que toma dos punteros a objetos de tipo `T` y devuelve un valor booleano.
+[source,cpp]
+----
+#include "src/Empresa.h"
+#include "src/Reporte.h"
+#include "src/Contenedor.h"   // Es un archivo que contiene los datos de los empleados
+#include "src/Menu.h"
+using namespace std;
+int main() {
 
-=== Serialización y Deserialización
+    Menu menu;
+    menu.mostrarMenuPrincipal();
+    return 0;
 
-La serialización es el proceso de convertir un objeto en una secuencia de bytes que se puede almacenar o transmitir. La deserialización es el proceso inverso, en el que se reconstruye el objeto original a partir de la secuencia de bytes. Estos procesos son esenciales para almacenar objetos complejos en archivos o transmitirlos a través de una red.
+}
+----
+
+El archivo `main.cpp` inicializa el menú principal del sistema y espera interacciones del usuario.
+
+==== Empresa.h
+
+[source,cpp]
+----
+#ifndef TRABAJOS_LP_2_EMPRESA_H
+#define TRABAJOS_LP_2_EMPRESA_H
+
+#include <set>
+#include "Departamento.h"
+
+template <typename T>
+class Empresa {
+public:
+    explicit Empresa(string nombre, vector<T*> departamento) : nombre(nombre) ,departamentos(departamento) {
+    }
+
+    Empresa(string nombre, T* departamento) : nombre(nombre) {
+        departamentos.insert(departamento);
+    }
+
+    ~Empresa() {
+        for (auto departamento : departamentos) {
+            delete departamento;
+        }
+    }
+
+    void agregarDepartamento(T* departamento) {
+        departamentos.insert(departamento);
+    }
+
+    void eliminarDepartamento(const string& nombre) {
+        departamentos.erase(remove_if(departamentos.begin(), departamentos.end(),
+                                      [&nombre](T* departamento) {
+                                          return departamento->getNombre() == nombre;
+                                      }), departamentos.end());
+        cout << "Departamento eliminado correctamente" << endl;
+    }
+
+    void mostrarDepartamentos() const {
+        for (const auto& departamento : departamentos) {
+            cout << departamento->getNombre() << endl;
+        }
+    }
+
+private:
+    string nombre;
+    set<T*> departamentos;
+};
+
+#endif //TRABAJOS_LP_2_EMPRESA_H
+----
+
+La clase `Empresa` es una plantilla que maneja una colección de departamentos.
+
+- **Constructores**:
+- `Empresa(string nombre, vector<T*> departamento)`: Inicializa la empresa con un nombre y un vector de departamentos.
+- `Empresa(string nombre, T* departamento)`: Inicializa la empresa con un nombre y un único departamento.
+
+- **Destructor**:
+- `~Empresa()`: Libera la memoria de los departamentos cuando se destruye el objeto `Empresa`.
+
+- **Métodos**:
+- `void agregarDepartamento(T* departamento)`: Añade un nuevo departamento a la empresa.
+- `void eliminarDepartamento(const string& nombre)`: Elimina un departamento por nombre.
+- `void mostrarDepartamentos() const`: Muestra los nombres de todos los departamentos.
+
+La clase utiliza un `set` para almacenar los departamentos, garantizando que cada departamento sea único.
+
+==== Reporte.h
+
+[source,cpp]
+----
+#ifndef TRABAJOS_LP_2_REPORTE_H
+#define TRABAJOS_LP_2_REPORTE_H
+
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Reportes {
+public:
+    static void generarReporte(T& empresa) {
+        cout << "Reporte de la Empresa:" << empresa.getNombre() << endl;
+        for (auto& departamento : empresa.getDepartamentos()) {
+            cout << "Departamento:" << departamento->getNombre() << endl;
+            for (auto& empleado : departamento->getEmpleados()) {
+                cout << "  Empleado: " << empleado->getNombre() << ", Salario: " << empleado->calcularSalario() << endl;
+            }
+        }
+    }
+
+    static void mostrarSalarioTotal(const T& empresa) {
+        double salarioTotal = 0;
+        for (auto& departamento : empresa.getDepartamentos()) {
+            for (auto& empleado : departamento->getEmpleados()) {
+                salarioTotal += empleado->calcularSalario();
+            }
+        }
+        cout << "Salario total de la empresa: " << salarioTotal << endl;
+    }
+};
+
+#endif //TRABAJOS_LP_2_REPORTE_H
+----
+
+La clase `Reportes` es una plantilla que proporciona métodos estáticos para generar reportes sobre la empresa.
+
+- **Métodos**:
+- `static void generarReporte(T& empresa)`: Genera un reporte detallado de la empresa, mostrando los nombres de los departamentos y los empleados junto con sus salarios.
+- `static void mostrarSalarioTotal(const T& empresa)`: Calcula y muestra el salario total de todos los empleados en la empresa.
+
+==== Contenedor.h
+
+[source,cpp]
+----
+#ifndef TRABAJOS_LP_2_CONTENEDOR_H
+#define TRABAJOS_LP_2_CONTENEDOR_H
+
+#include "Empleados/Empleado.h"
+#include <vector>
+
+// Primer módulo de empleados
+Empleado* gerente = new Gerente("Alice", 5000, 2, "desarrollo", 1000);
+Empleado* desarrollador = new Desarrollador("Bob", 3000, 3, "C++", 2);
+Empleado* disenador = new Disenador("Charlie", 3500, 2, "Photoshop", 1);
+Empleado* tester = new Tester("David", 4000, 2, "Windows", 2);
+
+vector<Empleado*> empleados1 = {gerente, desarrollador, disenador, tester};
+
+// Segundo módulo de empleados
+Empleado* gerente2 = new Gerente("Joaquin", 5000, 2, "servicios", 3000);
+Empleado* desarrollador2 = new Desarrollador("Grossman", 3000, 3, "Java", 20);
+Empleado* disenador2 = new Disenador("Salvador", 3500, 2, "Illustrator", 2);
+Empleado* tester2 = new Tester("Yhosfer", 4000, 2, "Linux", 3);
+
+vector<Empleado*> empleados2 = {gerente2, desarrollador2, disenador2, tester2};
+
+// Definición de departamentos con los empleados
+Departamento<Empleado> marketing("marketing", empleados1);
+Departamento<Empleado> ventas("ventas", empleados2);
+
+#endif //TRABAJOS_LP_2_CONTENEDOR_H
+----
+
+El archivo `Contenedor.h` crea instancias de empleados y los agrupa en departamentos. Estos objetos se utilizan para inicializar el sistema y proporcionar datos de ejemplo.
+
+- **Instancias de Empleados**:
+- Crea objetos de `Gerente`, `Desarrollador`, `Disenador`, y `Tester` con nombres, salarios y otros atributos específicos.
+
+- **Vectores de Empleados**:
+- `vector<Empleado*> empleados1`: Contiene empleados del primer módulo.
+- `vector<Empleado*> empleados2`: Contiene empleados del segundo módulo.
+
+- **Departamentos**:
+- `Departamento<Empleado> marketing`: Define el departamento de marketing con los empleados del primer módulo.
+- `Departamento<Empleado> ventas`: Define el departamento de ventas con los empleados del segundo módulo.
+
+==== menu.h
+
+[source,cpp]
+----
+#ifndef TRABAJOS_LP_2_MENU_H
+#define TRABAJOS_LP_2_MENU_H
+
+#include <iostream>
+#include "Empresa.h"
+#include "Contenedor.h"   // Es un archivo que contiene los datos de los empleados
+
+class Menu {
+private:
+    Empresa<Departamento<Empleado>> empresa;
+
+public:
+    Menu();
+    void mostrarMenuPrincipal();
+    void mostrarMenuDepartamentos();
+    void crearDepartamento();
+    static void crearEmpleado(Departamento<Empleado>* departamento);
+    void listarDepartamentos();
+    static void listarEmpleados(Departamento<Empleado>* departamento);
+    static void editarEmpleado(Departamento<Empleado>* departamento);
+    static void eliminarEmpleado(Departamento<Empleado>* departamento);
+    static void buscarEmpleado(Departamento<Empleado>* departamento);
+    void generarReporte();
+};
+
+Menu::Menu() : empresa("TechCorp", &marketing) {}
+
+void Menu::mostrarMenuPrincipal() {
+    int opcion;
+    do {
+        cout << "1. Crear Departamento" << endl;
+        cout << "2. Listar Departamentos" << endl;
+        cout << "3. Generar Reporte" << endl;
+        cout << "0. Salir" << endl;
+        cin >> opcion;
+        switch (opcion) {
+            case 1:
+                crearDepartamento();
+                break;
+            case 2:
+                listarDepartamentos();
+                break;
+            case 3:
+                generarReporte();
+                break;
+        }
+    } while (opcion != 0);
+}
+
+// Implementación de otros métodos...
+----
+
+La clase `Menu` maneja la interfaz de usuario del sistema a través de varios métodos para interactuar con los departamentos y empleados.
+
+- **Atributos**:
+- `Empresa<Departamento<Empleado>> empresa`: Instancia de la empresa que contiene los departamentos y empleados.
+
+- **Constructores**:
+- `Menu()`: Inicializa la empresa con un nombre y un departamento de marketing predefinido.
+
+- **Métodos**:
+- `void mostrarMenuPrincipal()`: Muestra el menú principal con opciones para crear departamentos, listar departamentos y generar reportes.
+- `void mostrarMenuDepartamentos()`: Muestra un submenú para gestionar los departamentos (no mostrado en el fragmento).
+- `void crearDepartamento()`: Permite la creación de un nuevo departamento (no mostrado en el fragmento).
+- `static void crearEmpleado(Departamento<Empleado>* departamento)`: Permite la creación de un nuevo empleado en un departamento (no mostrado en el fragmento).
+- `void listarDepartamentos()`: Lista todos los departamentos existentes (no mostrado en el fragmento).
+- `static void listarEmpleados(Departamento<Empleado>* departamento)`: Lista todos los empleados de un departamento específico (no mostrado en el fragmento).
+- `static void editarEmpleado(Departamento<Empleado>* departamento)`: Permite editar la información de un empleado (no mostrado en el fragmento).
+- `static void eliminarEmpleado(Departamento<Empleado>* departamento)`: Permite eliminar un empleado de un departamento (no mostrado en el fragmento).
+- `static void buscarEmpleado(Departamento<Empleado>* departamento)`: Permite buscar un empleado en un departamento (no mostrado en el fragmento).
+- `void generarReporte()`: Genera un reporte de la empresa (no mostrado en el fragmento).

@@ -33,7 +33,7 @@ public:
         Empleado::nombre = nombre;
     }
 
-    double getSalario() const {
+    double getSalario() {
         return salario;
     }
 
@@ -41,7 +41,7 @@ public:
         Empleado::salario = salario;
     }
 
-    const int getFechaContratacion() const {
+     int getFechaContratacion() {
         return fechaContratacion;
     }
 

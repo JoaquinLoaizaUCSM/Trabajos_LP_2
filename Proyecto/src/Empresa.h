@@ -2,16 +2,21 @@
 #define TRABAJOS_LP_2_EMPRESA_H
 
 #include <set>
+#include <algorithm>
+#include <iostream>
+#include <utility>
 #include "Departamento.h"
+
+using namespace std;
 
 template <typename T>
 class Empresa {
 public:
-    explicit Empresa(string nombre, vector<T*> departamento) : nombre(nombre) ,departamentos(departamento){
-    }
+    explicit Empresa(string  nombre, set<T*> departamentos)
+            : nombre(std::move(nombre)), departamentos(move(departamentos)) {}
 
-    Empresa(string nombre, T* departamento) : nombre(nombre) {
-        departamentos.insert(departamento);
+    Empresa(string  nombre, T* depatamento) : nombre(std::move(nombre)) {
+        departamentos.insert(depatamento);
     }
 
     ~Empresa() {
@@ -25,31 +30,37 @@ public:
     }
 
     void eliminarDepartamento(const string& nombre) {
-        departamentos.erase(remove_if(departamentos.begin(), departamentos.end(),
-                                      [&nombre](T* departamento) {
-                                          return departamento->getNombre() == nombre;
-                                      }), departamentos.end());
-        cout << "Departamento eliminado correctamente" << endl;
-    }
-
-    void guardarDatos() {
-        for (auto departamento : departamentos) {
-            departamento->guardar("empleados.txt");
+        auto it = find_if(departamentos.begin(), departamentos.end(),
+                          [&nombre](T* departamento) {
+                              return departamento->getNombre() == nombre;
+                          });
+        if (it != departamentos.end()) {
+            delete *it;
+            departamentos.erase(it);
+            cout << "Departamento eliminado correctamente" << endl;
+        } else {
+            cout << "Departamento no encontrado" << endl;
         }
     }
 
-    void cargarDatos() {
-        for (auto departamento : departamentos) {
-            departamento->cargar("empleados.txt");
+    T* buscarDepartamento(const string& nombre) {
+        auto it = find_if(departamentos.begin(), departamentos.end(),
+                          [&nombre](T* departamento) {
+                              return departamento->getNombre() == nombre;
+                          });
+        if (it != departamentos.end()) {
+            return *it;
         }
+        return nullptr;
     }
 
-    set<T *> & getDepartamentos() {
-        return departamentos;
-    }
 
-    string getNombre() {
+    string getNombre()  {
         return nombre;
+    }
+
+    set<T*> getDepartamentos() {
+        return departamentos;
     }
 
 
@@ -58,7 +69,4 @@ private:
     set<T*> departamentos;
 };
 
-
-
-
-#endif //TRABAJOS_LP_2_EMPRESA_H
+#endif // TRABAJOS_LP_2_EMPRESA_H

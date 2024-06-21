@@ -1,107 +1,71 @@
 #ifndef TRABAJOS_LP_2_DEPARTAMENTO_H
 #define TRABAJOS_LP_2_DEPARTAMENTO_H
 
-#include <vector>
-#include <stdexcept>
-#include <functional>
+#include <map>
+#include <string>
 #include "GestorArchivos.h"
-#include "Empleados/Empleado.h"
 
-using namespace std;
 
 template <typename T>
 class Departamento {
-private:
-    vector<T*> empleados;
-    GestorArchivos manejadorArchivos;
-    string nombre;
-
 public:
-    ~Departamento() {
-        for (auto empleado : empleados) {
-            delete empleado;
-        }
-    }
-
-    explicit Departamento(string nombre) : nombre(nombre) {}
-
-    Departamento(string nombre, vector<T*> empleados) : empleados(empleados), nombre(nombre) {}
-
-    Departamento(string nombre, vector<T*> empleados, GestorArchivos manejadorArchivos)
-            : empleados(empleados), manejadorArchivos(manejadorArchivos), nombre(nombre) {}
-
-
+    Departamento(string  nombre, GestorArchivos gestorArchivos) : nombre(std::move(nombre)), gestorArchivos(gestorArchivos) {}
 
     void agregarEmpleado(T* empleado) {
-        empleados.push_back(empleado);
-        cout << "Empleado agregado correctamente" << endl;
+        empleados[nextId] = empleado;
+        nextId++;
     }
 
-    void agregarEmpleado(vector<T*> empleados) {
-        for (auto empleado : empleados)
-            this->empleados.push_back(empleado);
-
-        cout << "Empleados agregados correctamente" << endl;
+    void eliminarEmpleado(int id) {
+        empleados.erase(id);
     }
 
-    void eliminarEmpleado(const string& nombre) {
-        empleados.erase(remove_if(empleados.begin(), empleados.end(),
-                                  [&nombre](T* empleado) {
-                                      return empleado->getNombre() == nombre;
-                                  }), empleados.end());
-        cout << "Empleado eliminado correctamente" << endl;
-    }
-
-    void EditarEmpleado(const string& nombre, const string& nuevoNombre, double nuevoSalario, int nuevaFechaContratacion) {
-        auto empleado = buscarEmpleado(nombre);
-        empleado->setNombre(nuevoNombre);
-        empleado->setSalario(nuevoSalario);
-        empleado->setFechaContratacion(nuevaFechaContratacion);
-        cout << "Empleado editado correctamente" << endl;
-    }
-
-    T* buscarEmpleado(const string& nombre) const {
-        auto it = find_if(empleados.begin(), empleados.end(),
-                          [&nombre](T* empleado) {
-                              return empleado->getNombre() == nombre;
-                          });
+    void editarEmpleado(int id, string nombre, double salario) {
+        auto it = empleados.find(id);
         if (it != empleados.end()) {
-            return *it;
-        } else {
-            throw runtime_error("Empleado no encontrado");
+            it->second->setNombre(nombre);
+            it->second->setSalario(salario);
         }
     }
-
-    void ordenarEmpleados(function<bool(T*, T*)> comparador) {
-        sort(empleados.begin(), empleados.end(), comparador);
-        cout << "Empleados ordenados correctamente" << endl;
-    }
-
-    void listarEmpleados() const {
-        for (const auto& empleado : empleados) {
-            cout << "Nombre: " << empleado->getNombre() << ", Salario: " << empleado->calcularSalario() << endl;
+    T* buscarEmpleado(int id) const {
+        auto it = empleados.find(id);
+        if (it != empleados.end()) {
+            return it->second;
         }
+        return nullptr;
     }
 
-    void guardar(const string& archivo) {
-        manejadorArchivos.guardar(archivo, empleados);
+    void getEmpleado(string nombre) {
+        for (auto& empleado : empleados) {
+            if (empleado.second->getNombre() == nombre) {
+                std::cout << "Empleado encontrado: " << empleado.second->getNombre() << std::endl;
+                return;
+            }
+        }
+        std::cout << "Empleado no encontrado" << std::endl;
     }
 
-    void cargar(const string& archivo) {
-        manejadorArchivos.cargar(archivo, empleados);
+     map<int, T*>& getEmpleados(){
+        return empleados;
     }
 
-    string getNombre() {
+    string getNombre()  {
         return nombre;
     }
 
-    void setNombre(string nombre) {
-        this->nombre = nombre;
+    void guardarEmpleados() {
+        gestorArchivos.guardar("empleados" ,empleados);
     }
 
-    vector<T*>& getEmpleados()  {
-        return empleados;
+    void cargarEmpleados() {
+        gestorArchivos.cargar("empleados", empleados);
     }
+private:
+    string nombre;
+    map<int, T*> empleados;
+    GestorArchivos gestorArchivos;
+    int nextId = 0;
 };
+
 
 #endif // TRABAJOS_LP_2_DEPARTAMENTO_H

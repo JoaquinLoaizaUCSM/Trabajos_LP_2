@@ -20,10 +20,12 @@ public:
     static void editarEmpleado(Departamento<Empleado>* departamento);
     static void eliminarEmpleado(Departamento<Empleado>* departamento);
     static void buscarEmpleado(Departamento<Empleado>* departamento);
+    static void guardarDatos(Departamento<Empleado>* departamento);
+    static void cargarDatos(Departamento<Empleado>* departamento);
     void generarReporte();
 };
 
-Menu::Menu() : empresa("TechCorp",&marketing) {}
+Menu::Menu() : empresa("TechCorp", &marketing) {}
 
 void Menu::mostrarMenuPrincipal() {
     int opcion;
@@ -109,10 +111,10 @@ void Menu::mostrarMenuDepartamentos() {
                 buscarEmpleado(departamento);
                 break;
             case 6:
-                empresa.guardarDatos();
+                guardarDatos(departamento);
                 break;
             case 7:
-                empresa.cargarDatos();
+                cargarDatos(departamento);
                 break;
             case 8:
                 mostrarMenuPrincipal();
@@ -127,9 +129,9 @@ void Menu::crearDepartamento() {
     string nombre;
     cout << "Ingrese el nombre del departamento:";
     getline(cin, nombre);
-    GestorArchivos gestorArchivos;
+    GestorArchivos archivos;
     vector<Empleado*> empleados;
-    auto* departamento = new Departamento<Empleado>(nombre);
+    auto* departamento = new Departamento<Empleado>(nombre, archivos);
     empresa.agregarDepartamento(departamento);
     cout << "Departamento creado correctamente." << endl;
 }
@@ -151,30 +153,31 @@ void Menu::crearEmpleado(Departamento<Empleado>* departamento) {
     cout << "Ingrese el puesto del empleado: ";
     getline(cin, puesto);
 
-    Empleado* empleado = nullptr;
+    Empleado *empleado = nullptr;
+
     if (puesto == "Desarrollador") {
         string experiencia;
         cout << "Ingrese la lenguaje de programacion:";
         cin >> experiencia;
         cin.ignore(); // Ignorar nueva línea
-        empleado = new Desarrollador(nombre, salario, fechaContratacion, experiencia);
+        Empleado* empleado = new Desarrollador(nombre, salario, fechaContratacion, experiencia);
     } else if (puesto == "Disenador") {
         string herramienta;
         cout << "Ingrese la herramienta:";
         getline(cin, herramienta);
 
-        empleado = new Disenador(nombre, salario, fechaContratacion, herramienta);
+        Empleado* empleado = new Disenador(nombre, salario, fechaContratacion, herramienta);
     } else if (puesto == "Gerente") {
         int numEmpleados;
         cout << "Ingrese el número de empleados a cargo:";
         cin >> numEmpleados;
         cin.ignore(); // Ignorar nueva línea
-        empleado = new Gerente(nombre, numEmpleados);
+        Empleado* empleado = new Gerente(nombre, numEmpleados);
     } else if (puesto == "Tester") {
         string especialidad;
         cout << "Ingrese la sistema operativo:";
         getline(cin, especialidad);
-        empleado = new Tester(nombre, salario, fechaContratacion, especialidad);
+        Empleado* empleado = new Tester(nombre, salario, fechaContratacion, especialidad);
     } else {
         cout << "Puesto no válido." << endl;
         return;
@@ -193,25 +196,23 @@ void Menu::listarDepartamentos() {
 
 void Menu::listarEmpleados(Departamento<Empleado>* departamento) {
     cout << "Lista de Empleados del Departamento " << departamento->getNombre() << ":" << endl;
-    departamento->listarEmpleados();
+    Reportes<Departamento<Empleado>>::mostrarEmpleadosDelDepartamento(departamento);
 }
 
 void Menu::editarEmpleado(Departamento<Empleado>* departamento) {
     string nombre, nuevoNombre;
-    double nuevoSalario;
-    int nuevaFechaContratacion;
-    cout << "Ingrese el nombre del empleado a editar:";
-    getline(cin, nombre);
-    cout << "Ingrese el nuevo nombre:";
-    getline(cin, nuevoNombre);
-    cout << "Ingrese el nuevo salario:";
-    cin >> nuevoSalario;
-    cout << "Ingrese la nueva fecha de contratación (AAAA):";
-    cin >> nuevaFechaContratacion;
+    int id;
+
+    cout << "Ingrese el id del empleado a editar:";
+    cin >> id;
     cin.ignore(); // Ignorar nueva línea
 
+    double nuevoSalario;
+    cout << "Ingrese el nuevo salario:";
+    cin >> nuevoSalario;
+
     try {
-        departamento->EditarEmpleado(nombre, nuevoNombre, nuevoSalario, nuevaFechaContratacion);
+        departamento->editarEmpleado(id, nombre, nuevoSalario);
         cout << "Empleado editado correctamente." << endl;
     } catch (const runtime_error& e) {
         cerr << e.what() << endl;
@@ -219,12 +220,12 @@ void Menu::editarEmpleado(Departamento<Empleado>* departamento) {
 }
 
 void Menu::eliminarEmpleado(Departamento<Empleado>* departamento) {
-    string nombre;
-    cout << "Ingrese el nombre del empleado a eliminar:";
-    getline(cin, nombre);
+    int id;
+    cout << "Ingrese el id del empleado a eliminar:";
+    cin >> id;
 
     try {
-        departamento->eliminarEmpleado(nombre);
+        departamento->eliminarEmpleado(id);
         cout << "Empleado eliminado correctamente." << endl;
     } catch (const runtime_error& e) {
         cerr << e.what() << endl;
@@ -232,17 +233,25 @@ void Menu::eliminarEmpleado(Departamento<Empleado>* departamento) {
 }
 
 void Menu::buscarEmpleado(Departamento<Empleado>* departamento) {
-    string nombre;
+    int id;
     cout << "Ingrese el nombre del empleado a buscar:";
-    getline(cin, nombre);
+    cin >> id;
 
     try {
-        Empleado* empleado = departamento->buscarEmpleado(nombre);
+        Empleado* empleado = departamento->buscarEmpleado(id);
         cout << "Empleado encontrado:" << endl;
         empleado->mostrarDatos();
     } catch (const runtime_error& e) {
         cerr << e.what() << endl;
     }
+}
+
+void Menu::guardarDatos(Departamento<Empleado>* departamento) {
+    departamento->guardarEmpleados();
+}
+
+void Menu::cargarDatos(Departamento<Empleado>* departamento) {
+    departamento->cargarEmpleados();
 }
 
 void Menu::generarReporte() {

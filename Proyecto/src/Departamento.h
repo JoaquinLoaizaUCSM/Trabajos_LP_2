@@ -1,12 +1,10 @@
-
 #ifndef TRABAJOS_LP_2_DEPARTAMENTO_H
 #define TRABAJOS_LP_2_DEPARTAMENTO_H
 
 #include <vector>
 #include <stdexcept>
 #include <functional>
-
-#include "GestorArchivo.h"
+#include "GestorArchivos.h"
 #include "Empleados/Empleado.h"
 
 using namespace std;
@@ -16,17 +14,23 @@ class Departamento {
 private:
     vector<T*> empleados;
     GestorArchivos manejadorArchivos;
+    string nombre;
 
 public:
     ~Departamento() {
-        for (auto   empleado : empleados) {
+        for (auto empleado : empleados) {
             delete empleado;
         }
     }
 
-    explicit Departamento(vector<T*> empleados, GestorArchivos manejadorArchivos) : empleados(empleados) {
-        this->manejadorArchivos = manejadorArchivos;
-    }
+    explicit Departamento(string nombre) : nombre(nombre) {}
+
+    Departamento(string nombre, vector<T*> empleados) : empleados(empleados), nombre(nombre) {}
+
+    Departamento(string nombre, vector<T*> empleados, GestorArchivos manejadorArchivos)
+            : empleados(empleados), manejadorArchivos(manejadorArchivos), nombre(nombre) {}
+
+
 
     void agregarEmpleado(T* empleado) {
         empleados.push_back(empleado);
@@ -34,7 +38,7 @@ public:
     }
 
     void agregarEmpleado(vector<T*> empleados) {
-        for (auto empleado: empleados)
+        for (auto empleado : empleados)
             this->empleados.push_back(empleado);
 
         cout << "Empleados agregados correctamente" << endl;
@@ -73,7 +77,6 @@ public:
         cout << "Empleados ordenados correctamente" << endl;
     }
 
-
     void listarEmpleados() const {
         for (const auto& empleado : empleados) {
             cout << "Nombre: " << empleado->getNombre() << ", Salario: " << empleado->calcularSalario() << endl;
@@ -87,6 +90,18 @@ public:
     void cargar(const string& archivo) {
         manejadorArchivos.cargar(archivo, empleados);
     }
+
+    string getNombre() {
+        return nombre;
+    }
+
+    void setNombre(string nombre) {
+        this->nombre = nombre;
+    }
+
+    vector<T*>& getEmpleados()  {
+        return empleados;
+    }
 };
 
-#endif //TRABAJOS_LP_2_DEPARTAMENTO_H
+#endif // TRABAJOS_LP_2_DEPARTAMENTO_H

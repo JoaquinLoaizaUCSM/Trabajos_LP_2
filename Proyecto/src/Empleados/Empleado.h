@@ -25,11 +25,11 @@ public:
     virtual string serializar() const = 0;
     virtual void deserializar(const string& data) = 0;
 
-    const string &getNombre() const {
+    string getNombre()  {
         return nombre;
     }
 
-    void setNombre(const string &nombre) {
+    void setNombre(string nombre) {
         Empleado::nombre = nombre;
     }
 
@@ -41,7 +41,7 @@ public:
         Empleado::salario = salario;
     }
 
-    const int &getFechaContratacion() const {
+    const int getFechaContratacion() const {
         return fechaContratacion;
     }
 

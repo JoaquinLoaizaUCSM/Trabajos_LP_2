@@ -1,6 +1,6 @@
 #ifndef TRABAJOS_LP_2_CONTENEDOR_H
 #define TRABAJOS_LP_2_CONTENEDOR_H
-#include "Empleado.h"
+#include "Empleados/Empleado.h"
 #include <vector>
 
 // Primer modulo de empleados
@@ -21,5 +21,7 @@ Empleado* tester2 = new Tester("Yhosfer", 4000, 2, "Linux", 3);
 
 vector<Empleado*> empleados2 = {gerente2, desarrollador2, disenador2, tester2};
 
+Departamento<Empleado> marketing("foz", empleados1);
+Departamento<Empleado> ventas("sony", empleados2);
 
 #endif //TRABAJOS_LP_2_CONTENEDOR_H

@@ -45,7 +45,7 @@ public:
         std::cout << "Empleado no encontrado" << std::endl;
     }
 
-     map<int, T*>& getEmpleados(){
+    map<int, T*>& getEmpleados(){
         return empleados;
     }
 

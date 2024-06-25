@@ -24,6 +24,8 @@ public:
             return new Desarrollador("", 0, 0);
         } else if (tipo == typeid(Disenador).name()) {
             return new Disenador("", 0, 0);
+        } else if (tipo == typeid(Tester).name()){
+            return new Tester("", 0, 0);
         }
         return nullptr;
     }

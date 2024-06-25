@@ -1,8 +1,6 @@
 #ifndef TRABAJOS_LP_2_DISENADOR_H
 #define TRABAJOS_LP_2_DISENADOR_H
 
-#include <utility>
-
 #include "Empleado.h"
 
 class Disenador : public Empleado{

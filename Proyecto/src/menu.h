@@ -55,7 +55,7 @@ void Menu::mostrarMenuPrincipal() {
                 break;
             case 5:
                 cout << "Saliendo del programa..." << endl;
-                break;
+                return;
             default:
                 cout << "Opción no válida. Intente de nuevo." << endl;
         }
@@ -131,7 +131,7 @@ void Menu::crearDepartamento() {
     cout << "Ingrese el nombre del departamento:";
     getline(cin, nombre);
     GestorArchivos archivos;
-    auto* departamento = new Departamento<Empleado>(nombre, archivos);
+    Departamento<Empleado>* departamento = new Departamento<Empleado>(nombre, archivos);
     empresa.agregarDepartamento(departamento);
     cout << "Departamento creado correctamente." << endl;
 }
@@ -164,7 +164,6 @@ void Menu::crearEmpleado(Departamento<Empleado>* departamento) {
         string herramienta;
         cout << "Ingrese la herramienta:";
         getline(cin, herramienta);
-
         Empleado* empleado = new Disenador(nombre, salario, fechaContratacion, herramienta);
     } else if (puesto == "Gerente") {
         int numEmpleados;
@@ -234,7 +233,7 @@ void Menu::eliminarEmpleado(Departamento<Empleado>* departamento) {
 
 void Menu::buscarEmpleado(Departamento<Empleado>* departamento) {
     int id;
-    cout << "Ingrese el nombre del empleado a buscar:";
+    cout << "Ingrese el ID del empleado a buscar:";
     cin >> id;
 
     try {

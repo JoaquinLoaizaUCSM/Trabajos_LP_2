@@ -39,7 +39,7 @@ public:
             if (!ofs) {
                 throw runtime_error("Error al abrir el archivo para guardar");
             }
-            for (const auto& empleado : empleados) {
+            for (pair<int,Empleado*> empleado : empleados) {
                 ofs << empleado.first << " " << typeid(*empleado.second).name() << " " << empleado.second->serializar() << endl;
             }
         } catch (const runtime_error& e) {
@@ -47,26 +47,6 @@ public:
         }
     }
 
-/*    static void cargar(const string& archivo, vector<Empleado*>& empleados) {
-        try {
-            ifstream ifs(archivo);
-            if (!ifs) {
-                throw runtime_error("Error al abrir el archivo para cargar");
-            }
-            string tipo, data;
-            while (ifs >> tipo) {
-                ifs.ignore(); // Ignorar el espacio después del programa
-                getline(ifs, data);
-                Empleado* empleado = EmpleadoFactory::crearEmpleado(tipo);
-                if (empleado) {
-                    empleado->deserializar(data);
-                    empleados.push_back(empleado);
-                }
-            }
-        } catch (const runtime_error& e) {
-            cerr << e.what() << endl;
-        }
-    }*/
 
     static void cargar(const string& archivo, map<int, Empleado*>& empleados) {
 

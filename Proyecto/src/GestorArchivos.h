@@ -4,7 +4,6 @@
 #include <fstream>
 #include <stdexcept>
 #include <map>
-#include <vector>
 
 #include "Empleados/Empleado.h"
 #include "Empleados/Gerente.h"
@@ -33,21 +32,6 @@ public:
 
 class GestorArchivos {
 public:
-    template <typename T>
-    static void guardar(const string& archivo, const vector<T*>& empleados) {
-        try {
-            ofstream ofs(archivo);
-            if (!ofs) {
-                throw runtime_error("Error al abrir el archivo para guardar");
-            }
-            for (const auto& empleado : empleados) {
-                ofs << typeid(*empleado).name() << " " << empleado->serializar() << endl;
-            }
-        } catch (const runtime_error& e) {
-            cerr << e.what() << endl;
-        }
-        cout << "Guardado con exito" << endl;
-    }
 
     static void guardar(const string& archivo, const map<int, Empleado*>& empleados) {
         try {

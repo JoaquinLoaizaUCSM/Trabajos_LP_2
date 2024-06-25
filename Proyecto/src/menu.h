@@ -2,6 +2,7 @@
 #define TRABAJOS_LP_2_MENU_H
 
 #include <iostream>
+#include <vector>
 #include "Empresa.h"
 #include "Contenedor.h"   // Es un archivo que contiene los datos de los empleados
 
@@ -130,7 +131,6 @@ void Menu::crearDepartamento() {
     cout << "Ingrese el nombre del departamento:";
     getline(cin, nombre);
     GestorArchivos archivos;
-    vector<Empleado*> empleados;
     auto* departamento = new Departamento<Empleado>(nombre, archivos);
     empresa.agregarDepartamento(departamento);
     cout << "Departamento creado correctamente." << endl;

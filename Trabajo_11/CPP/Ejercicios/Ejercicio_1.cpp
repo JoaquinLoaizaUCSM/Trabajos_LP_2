@@ -24,7 +24,7 @@ int main(){
 
 
     } catch (const string& e){
-        cout << "Excepcion capturada: " << e << endl;
+        cerr << "Excepcion capturada: " << e << endl;
     }
 
 
